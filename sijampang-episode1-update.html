@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jejak Langkah Si Jampang — Kisah Nyata dari Pasir Ipis</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hitam:  #060a06;
+  --gelap:  #0a120a;
+  --jati:   #0f1c10;
+  --daun:   #1a3a1c;
+  --lumut:  #2a5c2c;
+  --embun:  #3d7a3a;
+  --pucuk:  #6aaa60;
+  --emas:   #9a7200;
+  --emas2:  #b88c0a;
+  --emas3:  #d4a820;
+  --kuning: #ecc840;
+  --krem:   #f2e8d0;
+  --abu:    #7a7060;
+  --merah:  #8b2020;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--hitam);color:var(--krem);font-family:'Lora',Georgia,serif;overflow-x:hidden;}
+
+/* ── READING PROGRESS ── */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--daun),var(--emas3));z-index:9999;transition:width .1s;}
+
+/* ── CANVAS BG ── */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;}
+
+/* ── GRAIN ── */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.65;}
+
+/* ════════════════
+   SAMPUL
+════════════════ */
+.sampul{min-height:100vh;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center;overflow:hidden;}
+.sampul::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 100% 80% at 50% 100%,rgba(15,28,16,.97),transparent 65%),
+  linear-gradient(to bottom,#060a06 0%,#0a120a 40%,#060a06 100%);}
+.hujan{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.tetes{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(180,210,180,.12));animation:hujan-anim linear infinite;}
+@keyframes hujan-anim{from{transform:translateY(-120px);opacity:0;}10%{opacity:1;}90%{opacity:.4;}to{transform:translateY(110vh);opacity:0;}}
+.s-inner{position:relative;z-index:2;max-width:680px;}
+.s-lokasi{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.45em;color:rgba(180,136,10,.5);text-transform:uppercase;margin-bottom:20px;animation:muncul 1.4s ease both;}
+.s-orn{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:16px;animation:muncul 1.4s .1s ease both;}
+.s-orn-l{height:1px;width:44px;background:linear-gradient(to right,transparent,rgba(180,136,10,.4));}
+.s-orn-l.r{background:linear-gradient(to left,transparent,rgba(180,136,10,.4));}
+.s-orn-t{color:rgba(180,136,10,.4);font-size:.6rem;letter-spacing:.4em;}
+.s-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.85rem,2vw,1rem);color:rgba(242,232,208,.35);letter-spacing:.15em;margin-bottom:10px;animation:muncul 1.4s .15s ease both;}
+.s-judul{font-family:'IM Fell English',serif;font-size:clamp(2rem,7vw,4.8rem);font-weight:400;line-height:1.1;color:var(--krem);text-shadow:0 4px 80px rgba(0,0,0,.9);animation:muncul 1.4s .25s ease both;}
+.s-judul em{color:var(--emas3);font-style:italic;}
+.s-garis{width:70px;height:1px;margin:22px auto;background:linear-gradient(to right,transparent,var(--emas2),transparent);animation:muncul 1.4s .4s ease both;}
+.s-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.95rem,2.2vw,1.2rem);color:rgba(242,232,208,.5);line-height:1.9;margin-bottom:32px;animation:muncul 1.4s .5s ease both;}
+
+/* Counter bar sampul */
+.s-counter{display:flex;gap:0;border:1px solid rgba(180,136,10,.15);margin-bottom:32px;animation:muncul 1.4s .65s ease both;}
+.sc-item{flex:1;padding:14px 10px;text-align:center;border-right:1px solid rgba(180,136,10,.1);}
+.sc-item:last-child{border-right:none;}
+.sc-num{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--emas3);line-height:1;display:block;}
+.sc-lbl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,232,208,.3);margin-top:4px;display:block;}
+
+.s-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:muncul 1.4s .8s ease both;}
+.s-btn{padding:12px 24px;font-family:'Lora',serif;font-size:.88rem;cursor:pointer;border:none;transition:all .3s;text-decoration:none;display:inline-block;}
+.s-btn-baca{background:var(--daun);color:var(--krem);}
+.s-btn-baca:hover{background:var(--lumut);}
+.s-btn-donasi{background:transparent;color:var(--emas3);border:1px solid rgba(180,136,10,.35);}
+.s-btn-donasi:hover{background:rgba(180,136,10,.06);}
+
+.scroll-cue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);text-align:center;animation:muncul 1.4s 1.8s ease both;}
+.scroll-cue span{font-size:.58rem;letter-spacing:.22em;color:rgba(242,232,208,.2);text-transform:uppercase;display:block;margin-bottom:10px;}
+.scroll-bar{width:1px;height:50px;background:linear-gradient(to bottom,rgba(180,136,10,.35),transparent);margin:0 auto;animation:drip 2.8s 2s infinite;}
+@keyframes drip{0%,100%{opacity:.2;transform:scaleY(.7)}55%{opacity:1;transform:scaleY(1)}}
+@keyframes muncul{from{opacity:0;transform:translateY(22px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+
+/* ════════════════
+   CERITA
+════════════════ */
+.cerita{position:relative;z-index:10;}
+.bab{max-width:660px;margin:0 auto;padding:80px 36px;}
+@media(max-width:580px){.bab{padding:60px 20px;}}
+.sep{height:1px;max-width:440px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(154,114,0,.18),transparent);position:relative;z-index:10;}
+.sep-orn{text-align:center;padding:18px;position:relative;z-index:10;font-size:.65rem;letter-spacing:.5em;color:rgba(180,136,10,.2);}
+
+.b-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.4em;color:rgba(180,136,10,.45);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(14px);transition:all .9s ease;}
+.b-label.v{opacity:1;transform:translateY(0);}
+.b-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(154,114,0,.18),transparent);}
+.b-judul{font-family:'IM Fell English',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-style:italic;line-height:1.3;color:var(--krem);margin-bottom:26px;opacity:0;transform:translateY(18px);transition:all 1s .06s ease;}
+.b-judul.v{opacity:1;transform:translateY(0);}
+.b-judul em{color:var(--emas3);}
+
+.p{font-family:'Lora',serif;font-size:clamp(.95rem,1.8vw,1.06rem);line-height:2.1;color:rgba(242,232,208,.75);margin-bottom:20px;text-align:justify;opacity:0;transform:translateY(16px);transition:all 1s ease;}
+.p.v{opacity:1;transform:translateY(0);}
+.p em{color:var(--pucuk);font-style:italic;}
+.p strong{color:var(--krem);font-weight:600;}
+.p .e{color:var(--emas3);}
+.p.drop::first-letter{font-family:'IM Fell English',serif;font-size:4.5rem;font-weight:400;float:left;line-height:.72;margin-right:10px;margin-top:8px;color:var(--emas3);}
+
+.hati{margin:34px 0;padding:22px 26px;border-left:2px solid rgba(154,114,0,.4);background:rgba(154,114,0,.04);opacity:0;transform:translateX(-16px);transition:all 1s ease;}
+.hati.v{opacity:1;transform:translateX(0);}
+.hati p{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,2.2vw,1.2rem);color:rgba(242,232,208,.85);line-height:2;}
+.hati cite{display:block;margin-top:10px;font-size:.68rem;letter-spacing:.15em;color:rgba(180,136,10,.5);text-transform:uppercase;font-style:normal;}
+
+.alam{margin:26px 0;padding:26px 22px;background:linear-gradient(135deg,rgba(15,28,16,.7),rgba(10,18,10,.4));border:1px solid rgba(61,122,58,.1);border-left:2px solid rgba(61,122,58,.25);opacity:0;transform:translateY(18px);transition:all 1s ease;}
+.alam.v{opacity:1;transform:translateY(0);}
+.alam p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.95rem,2vw,1.1rem);color:rgba(180,210,170,.7);line-height:2.1;}
+
+.dramatis{text-align:center;padding:42px 20px;margin:34px 0;border-top:1px solid rgba(154,114,0,.1);border-bottom:1px solid rgba(154,114,0,.1);opacity:0;transition:all 1s ease;}
+.dramatis.v{opacity:1;}
+.dramatis .angka{font-family:'IM Fell English',serif;font-size:clamp(2.8rem,8vw,5rem);color:var(--emas3);display:block;line-height:1;}
+.dramatis .ket{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.9rem,2vw,1.05rem);color:rgba(242,232,208,.35);margin-top:10px;display:block;}
+
+.bait{text-align:center;padding:36px 20px;margin:34px 0;opacity:0;transition:all 1s ease;}
+.bait.v{opacity:1;}
+.bait span{display:block;font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,2.3vw,1.2rem);color:rgba(242,232,208,.6);line-height:2.5;}
+.bait span.bold{color:var(--emas3);font-size:clamp(1.05rem,2.5vw,1.3rem);}
+.bait span.kecil{font-size:clamp(.8rem,1.6vw,.92rem);color:rgba(242,232,208,.3);}
+
+.gelar-box{text-align:center;margin:34px 0;padding:26px;border:1px solid rgba(154,114,0,.18);background:rgba(154,114,0,.03);opacity:0;transition:all 1s ease;}
+.gelar-box.v{opacity:1;}
+.gelar-box .g-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;color:rgba(180,136,10,.4);text-transform:uppercase;margin-bottom:10px;}
+.gelar-box .g-teks{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--krem);line-height:1.5;}
+.gelar-box .g-teks em{color:var(--emas3);}
+.gelar-box .g-sub{font-size:.8rem;color:rgba(242,232,208,.3);margin-top:10px;font-style:italic;}
+
+/* ════════════════
+   TESTIMONI
+════════════════ */
+.testi-section{background:var(--jati);padding:80px 24px;position:relative;z-index:10;overflow:hidden;}
+.testi-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(26,58,28,.3),transparent);}
+.testi-inner{max-width:760px;margin:0 auto;position:relative;z-index:2;}
+.testi-header{text-align:center;margin-bottom:48px;}
+.testi-header .t-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.4em;color:var(--emas2);text-transform:uppercase;margin-bottom:14px;display:block;}
+.testi-header h2{font-family:'IM Fell English',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-style:italic;color:var(--krem);margin-bottom:8px;}
+.testi-header p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:rgba(242,232,208,.45);}
+
+/* Form testimoni */
+.testi-form{background:rgba(255,255,255,.02);border:1px solid rgba(180,136,10,.15);padding:32px;margin-bottom:40px;}
+.testi-form .f-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.25em;color:var(--emas2);text-transform:uppercase;margin-bottom:20px;display:block;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:500px){.f-row{grid-template-columns:1fr;}}
+.f-input,.f-textarea,.f-select{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(180,136,10,.18);color:var(--krem);font-family:'Lora',serif;font-size:.9rem;padding:12px 16px;outline:none;transition:border .3s;}
+.f-input:focus,.f-textarea:focus,.f-select:focus{border-color:rgba(180,136,10,.45);}
+.f-input::placeholder,.f-textarea::placeholder{color:rgba(242,232,208,.2);}
+.f-textarea{width:100%;min-height:100px;resize:vertical;margin-bottom:14px;}
+.f-select{background:#0a120a;cursor:pointer;}
+.f-select option{background:#0a120a;}
+
+/* Perasaan emoji selector */
+.rasa-wrap{margin-bottom:14px;}
+.rasa-label{font-size:.72rem;color:rgba(242,232,208,.4);margin-bottom:10px;display:block;}
+.rasa-grid{display:flex;gap:8px;flex-wrap:wrap;}
+.rasa-btn{padding:8px 14px;border:1px solid rgba(180,136,10,.15);background:transparent;color:rgba(242,232,208,.55);font-size:.82rem;cursor:pointer;transition:all .25s;font-family:'Lora',serif;}
+.rasa-btn:hover,.rasa-btn.aktif{border-color:var(--emas2);color:var(--emas3);background:rgba(180,136,10,.06);}
+
+.kirim-btn{width:100%;padding:14px;background:var(--daun);color:var(--krem);border:none;font-family:'Lora',serif;font-size:.95rem;cursor:pointer;transition:all .3s;margin-top:6px;letter-spacing:.03em;}
+.kirim-btn:hover{background:var(--lumut);}
+
+/* Daftar testimoni */
+.testi-list{display:flex;flex-direction:column;gap:2px;}
+.testi-item{background:rgba(255,255,255,.02);border:1px solid rgba(180,136,10,.08);padding:24px 26px;transition:all .3s;opacity:0;transform:translateY(16px);animation:testi-muncul .8s ease forwards;}
+.testi-item:hover{background:rgba(180,136,10,.04);border-color:rgba(180,136,10,.18);}
+@keyframes testi-muncul{to{opacity:1;transform:translateY(0);}}
+.ti-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:10px;}
+.ti-nama{font-family:'Cinzel',serif;font-size:.78rem;color:var(--emas2);letter-spacing:.08em;}
+.ti-rasa{font-size:.85rem;}
+.ti-kota{font-size:.7rem;color:rgba(242,232,208,.3);margin-top:2px;}
+.ti-teks{font-family:'Lora',serif;font-style:italic;font-size:.92rem;color:rgba(242,232,208,.7);line-height:1.85;}
+.ti-waktu{font-size:.65rem;color:rgba(242,232,208,.2);margin-top:8px;letter-spacing:.08em;}
+
+/* Counter testimoni */
+.testi-stats{display:flex;gap:0;border:1px solid rgba(180,136,10,.12);margin-bottom:32px;}
+.ts-item{flex:1;padding:16px;text-align:center;border-right:1px solid rgba(180,136,10,.08);}
+.ts-item:last-child{border-right:none;}
+.ts-num{font-family:'Cinzel',serif;font-size:1.6rem;color:var(--emas3);display:block;line-height:1;}
+.ts-lbl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,232,208,.25);margin-top:4px;display:block;}
+
+/* ════════════════
+   DONASI
+════════════════ */
+.donasi-section{background:linear-gradient(to bottom,var(--hitam),var(--jati));padding:80px 24px;position:relative;z-index:10;overflow:hidden;}
+.donasi-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(26,58,28,.25),transparent);}
+.donasi-inner{max-width:680px;margin:0 auto;position:relative;z-index:2;}
+.donasi-header{text-align:center;margin-bottom:40px;}
+.donasi-header .d-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.4em;color:var(--emas2);text-transform:uppercase;margin-bottom:14px;display:block;}
+.donasi-header h2{font-family:'IM Fell English',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-style:italic;color:var(--krem);margin-bottom:8px;}
+.donasi-header p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:rgba(242,232,208,.45);line-height:1.8;}
+
+/* Nominal pills */
+.nominal-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.nom-pill{padding:10px 18px;border:1px solid rgba(180,136,10,.2);background:transparent;color:rgba(242,232,208,.6);font-family:'Lora',serif;font-size:.88rem;cursor:pointer;transition:all .25s;}
+.nom-pill:hover,.nom-pill.aktif{border-color:var(--emas2);color:var(--emas3);background:rgba(180,136,10,.06);}
+.nom-custom{width:100%;margin-bottom:14px;}
+
+/* Rek card */
+.rek-card{background:rgba(255,255,255,.025);border:1px solid rgba(180,136,10,.2);padding:24px 26px;margin-bottom:20px;}
+.rek-baris{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.rek-baris:last-child{border-bottom:none;}
+.rek-icon{font-size:1rem;width:24px;text-align:center;}
+.rek-lbl{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,232,208,.3);}
+.rek-val{font-size:.95rem;color:var(--krem);font-weight:600;}
+.rek-val.besar{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--emas3);letter-spacing:.08em;}
+
+.konfirm-btn{width:100%;padding:14px;background:transparent;color:var(--emas3);border:1px solid rgba(180,136,10,.3);font-family:'Lora',serif;font-size:.95rem;cursor:pointer;transition:all .3s;letter-spacing:.03em;}
+.konfirm-btn:hover{background:rgba(180,136,10,.06);}
+
+/* Format pesan */
+.pesan-box{background:rgba(0,0,0,.3);padding:18px;margin-top:16px;border-left:2px solid var(--emas2);}
+.pesan-box .pb-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--emas2);margin-bottom:8px;font-weight:700;}
+.pesan-box p{font-size:.82rem;color:rgba(242,232,208,.65);line-height:1.9;font-family:monospace;}
+
+/* ════════════════
+   PENUTUP
+════════════════ */
+.penutup{background:var(--hitam);padding:100px 36px;text-align:center;position:relative;z-index:10;overflow:hidden;}
+.penutup::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(26,58,28,.2),transparent);}
+.p-inner{max-width:520px;margin:0 auto;position:relative;z-index:2;}
+.p-orn{font-size:.6rem;letter-spacing:.55em;color:rgba(180,136,10,.25);margin-bottom:28px;}
+.p-puisi{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.05rem,2.5vw,1.28rem);line-height:2.5;color:rgba(242,232,208,.75);margin-bottom:40px;}
+.p-puisi .e{color:var(--emas3);display:block;}
+.p-garis{width:36px;height:1px;background:var(--emas2);margin:0 auto 14px;}
+.p-sig{font-family:'Cinzel',serif;font-size:.82rem;color:var(--emas2);letter-spacing:.1em;margin-bottom:4px;}
+.p-sub{font-size:.7rem;color:rgba(242,232,208,.25);letter-spacing:.08em;}
+
+footer{background:#030503;padding:16px 32px;text-align:center;position:relative;z-index:10;font-size:.62rem;color:rgba(255,255,255,.14);letter-spacing:.1em;line-height:2.2;}
+
+/* Modal donasi */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99990;display:none;align-items:center;justify-content:center;padding:24px;}
+.modal-bg.aktif{display:flex;}
+.modal{background:var(--jati);border:1px solid rgba(180,136,10,.25);padding:36px;max-width:480px;width:100%;position:relative;}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:rgba(242,232,208,.4);font-size:1.2rem;cursor:pointer;}
+.modal h3{font-family:'IM Fell English',serif;font-style:italic;font-size:1.4rem;color:var(--krem);margin-bottom:20px;}
+.modal-row{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;}
+.modal-row:last-of-type{border-bottom:none;}
+.modal-row span{font-size:.82rem;color:rgba(242,232,208,.5);}
+.modal-row strong{font-size:.92rem;color:var(--emas3);}
+.modal-wa{display:block;width:100%;padding:14px;background:var(--daun);color:var(--krem);border:none;font-family:'Lora',serif;font-size:.95rem;cursor:pointer;text-align:center;text-decoration:none;margin-top:20px;transition:all .3s;}
+.modal-wa:hover{background:var(--lumut);}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<canvas id="bg"></canvas>
+
+<!-- ════════ SAMPUL ════════ -->
+<section class="sampul">
+  <div class="hujan" id="hujan"></div>
+  <div class="s-inner">
+    <div class="s-lokasi">Pasir Ipis · Jampang Sagaranten · Sukabumi</div>
+    <div class="s-orn"><div class="s-orn-l"></div><div class="s-orn-t">✦ ✦ ✦</div><div class="s-orn-l r"></div></div>
+    <p class="s-label">Kisah Nyata · Naskah Memoar · Episode I</p>
+    <h1 class="s-judul">Jejak Langkah<br><em>Si Jampang</em></h1>
+    <div class="s-garis"></div>
+    <p class="s-sub">Sebuah perjalanan tentang cinta, hutan,<br>dan harga yang harus dibayar</p>
+
+    <div class="s-counter">
+      <div class="sc-item"><span class="sc-num" id="ctr-baca">0</span><span class="sc-lbl">Sudah Membaca</span></div>
+      <div class="sc-item"><span class="sc-num" id="ctr-testi">0</span><span class="sc-lbl">Testimoni</span></div>
+      <div class="sc-item"><span class="sc-num" id="ctr-donatur">0</span><span class="sc-lbl">Donatur</span></div>
+      <div class="sc-item"><span class="sc-num" id="ctr-hutan">50 Ha</span><span class="sc-lbl">Hutan Terancam</span></div>
+    </div>
+
+    <div class="s-cta">
+      <a class="s-btn s-btn-baca" href="#cerita">📖 Baca Kisahnya</a>
+      <a class="s-btn s-btn-donasi" href="episode2-si-jampang.html">📖 Episode II →</a>
+      <a class="s-btn s-btn-donasi" href="https://malviejayagroup-prog.github.io/Manifesto" target="_blank">✍️ Manifesto</a>
+      <a class="s-btn s-btn-donasi" href="#donasi">🌿 Dukung Si Jampang</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Mulai membaca</span><div class="scroll-bar"></div></div>
+</section>
+
+<!-- ════════ CERITA ════════ -->
+<div class="cerita" id="cerita">
+
+<div class="bab">
+  <div class="b-label">Prolog</div>
+  <h2 class="b-judul">Mereka Menyebutku <em>Si Jampang</em></h2>
+  <p class="p drop">Aku orang Jampang. Lahir dan besar di Jampang Sagaranten — kampung yang oleh sebagian orang kota dianggap jauh, terpencil, udik. Dan memang begitulah adanya. Ketika pertama kali aku masuk kota, ada yang menyebutku dengan nada setengah meremehkan: <strong class="e">"Dasar Si Jampang."</strong></p>
+  <p class="p">Awalnya aku diam. Mungkin sedikit tersinggung. Tapi lama-lama aku mengerti — <em>Si Jampang bukan hinaan. Ia adalah gelar.</em> Gelar dari tanah yang pernah melahirkan jiwa-jiwa yang tidak takut berdiri sendirian ketika kebenaran harus dipertahankan.</p>
+  <div class="gelar-box"><div class="g-label">Gelar yang Aku Terima dengan Bangga</div><div class="g-teks">"Biarlah aku <em>Si Jampang.</em><br>Anak udik yang mencintai gunungnya."</div><div class="g-sub">Dan dari cinta itulah kisah ini dimulai.</div></div>
+</div>
+
+<div class="sep-orn">✦</div>
+
+<div class="bab">
+  <div class="b-label">Bagian Pertama</div>
+  <h2 class="b-judul">Dari Sawah yang <em>Tak Tahu Ujungnya</em></h2>
+  <p class="p drop">Aku lahir dari keluarga yang tidak kekurangan — di kampung yang masih gelap oleh ketiadaan listrik, keluargaku sudah punya listrik sendiri. Sawah kami luas, pohon kelapanya banyak. Tapi ibuku tidak pernah membiarkanku lupa diri.</p>
+  <p class="p">Ibu selalu mengajarkan kesederhanaan dan kemandirian — bukan dengan kata-kata panjang, tapi dengan cara hidup sehari-hari. Cara ia merawat sawah, cara ia memperlakukan tanah, cara ia menghormati alam seolah alam adalah anggota keluarga yang harus dijaga.</p>
+  <p class="p">Masa kecilku dipenuhi suara alam. <em>Aku suka mengembala kambing di hutan</em> — bukan karena terpaksa, tapi karena di sanalah aku merasa paling bebas. Di antara pohon-pohon, di antara suara angin dan air, ada ketenangan yang tidak pernah bisa kugantikan dengan apapun yang kemudian ditawarkan oleh kota.</p>
+  <div class="hati"><p>"Di hutan itulah aku pertama kali belajar bahwa alam tidak pernah berbohong. Ia selalu memberikan tepat apa yang kita butuhkan — tidak lebih, tidak kurang."</p><cite>Ingatan masa kecil di Jampang Sagaranten</cite></div>
+</div>
+
+<div class="sep-orn">✦</div>
+
+<div class="bab">
+  <div class="b-label">Bagian Kedua</div>
+  <h2 class="b-judul">Terlempar ke Pasir Ipis — <em>dan Jatuh Cinta</em></h2>
+  <p class="p drop">Tahun 2011. Tuhan membawaku ke Kampung Pasir Ipis, Gunung Guruh, Sukabumi — kampung tempat istriku dilahirkan. Dan saat pertama kali kakiku menginjak tanah itu, aku berhenti. Bukan karena lelah. Tapi karena sesuatu dalam diriku mengenali tempat ini.</p>
+  <div class="alam"><p>Hamparan sawah terbentang hijau seperti permadani yang dijahit tangan Tuhan sendiri. Air mengalir dari atas — curcor, deras, jernih — berbunyi seperti lagu yang tidak punya akhir. Hutan di sekelilingnya rimbun, subur, hidup. Tanahnya bau. Udaranya berat dengan oksigen dan doa.</p></div>
+  <p class="p"><em>Waas.</em> Itulah kata Sunda yang paling tepat — rasa haru yang dalam, bercampur rindu pada sesuatu yang belum pernah kumiliki tapi terasa sudah lama hilang. <strong>Kampung Pasir Ipis adalah kampung Jampangku dalam wujud yang berbeda.</strong></p>
+  <div class="hati"><p>"Aku tidak tahu waktu itu bahwa tanah yang pertama kali membuatku berhenti itu adalah tanah yang bertahun-tahun kemudian akan membuatku tidak bisa tidur, tidak bisa makan dengan tenang, dan akhirnya — tidak bisa diam."</p></div>
+</div>
+
+<div class="sep-orn">✦</div>
+
+<div class="bab">
+  <div class="b-label">Bagian Ketiga</div>
+  <h2 class="b-judul">Kabar yang Membuat <em>Langit Terasa Runtuh</em></h2>
+  <p class="p drop">Tapi ketenangan itu tidak berlangsung lama. Kabar itu datang — perlahan di awal, seperti bisik-bisik di warung, di jalan setapak, di sela percakapan orang tua yang wajahnya tiba-tiba menua lebih cepat dari biasanya.</p>
+  <p class="p"><strong>Gunung yang indah itu sedang dijual.</strong> Petak demi petak. Lima puluh hektar hutan — yang selama generasi menjaga kampung ini — berpindah tangan ke pengusaha besar dengan satu rencana: <span class="e">pertambangan.</span></p>
+  <p class="p">Secara naluri, aku tidak bisa menerima. Ada sesuatu dalam diriku yang memberontak — bukan karena hitung-hitungan, tapi karena ada sesuatu yang lebih tua dari logika yang berkata: <em>ini tidak boleh terjadi.</em></p>
+</div>
+
+<div class="sep-orn">✦</div>
+
+<div class="bab">
+  <div class="b-label">Bagian Keempat</div>
+  <h2 class="b-judul">Cinta Buta <em>Si Jampang</em></h2>
+  <p class="p drop">Maka aku bergerak. Secara tersembunyi. Dalam kelemahan. Tanpa modal yang cukup. Tapi dengan cinta yang tidak tahu batasnya — cinta yang oleh orang lain mungkin disebut kebodohan, tapi dari dalam terasa seperti satu-satunya pilihan yang benar.</p>
+  <div class="dramatis"><span class="angka">3.800</span><span class="ket">bibit kopi — diturunkan dengan tangan sendiri,<br>dari berbagai sumber yang dikejar satu per satu</span></div>
+  <p class="p">Selain kopi, kutanam juga <em>kacang inchi</em>. Aku buka lahan 3,5 hektar sendiri — dengan punggung, dengan keringat, dengan sisa tekad yang kupaksa untuk tidak menyerah. Aku ingin membuktikan: <strong>tanah ini tidak perlu dilukai untuk menghasilkan.</strong></p>
+  <div class="hati"><p>"Mungkin memang ini yang disebut cinta buta. Karena orang yang waras tidak akan melakukan apa yang aku lakukan — dengan kondisi yang aku miliki. Tapi cinta buta itu yang membuat kakiku terus melangkah ketika akal sehat sudah lama menyuruhku berhenti."</p><cite>Si Jampang, dari kaki Gunung Guruh</cite></div>
+</div>
+
+<div class="sep-orn">✦</div>
+
+<div class="bab">
+  <div class="b-label">Bagian Kelima</div>
+  <h2 class="b-judul">Harga yang Harus <em>Dibayar</em></h2>
+  <p class="p drop">Cinta tidak pernah gratis. Dan cinta sebesar ini — kepada gunung yang bukan milikku, kepada hutan yang sudah berpindah tangan — harganya tidak murah.</p>
+  <div class="dramatis"><span class="angka">Rp 200 Juta+</span><span class="ket">lilitan hutang yang ditanggung —<br>bukan untuk kemewahan. Tapi untuk pohon-pohon yang dicintai.</span></div>
+  <p class="p">Tiga tahun saraf kejepit. Hampir setahun pengobatan terhenti. Kecemasan yang tidak pernah benar-benar pergi. Dan di rumah — orang-orang terdekat yang belum bisa memahami mengapa seorang laki-laki rela hancur <em>demi pohon-pohon di atas gunung orang lain.</em></p>
+  <p class="p">Tapi setiap pagi, tanpa pernah absen, <strong>aku kembali ke dalam diri.</strong> Hening. Meditasi. Mengelola rasa sakit bukan dengan obat — tapi dengan pemahaman tentang kesadaran yang selama ini kupelajari. Dan satu lagi yang menopangku — seminggu yang lalu, aku tertidur di pangkuan ibuku.</p>
+  <div class="hati"><p>"Ini adalah harga yang harus kubayar atas harapan yang besar. Dan aku menerimanya — bukan karena pasrah, tapi karena aku tahu bahwa tidak ada perjuangan yang bermakna yang datang tanpa biaya."</p><cite>Dari keheningan setiap pagi</cite></div>
+</div>
+
+<div class="sep-orn">✦</div>
+
+<div class="bab">
+  <div class="b-label">Epilog</div>
+  <h2 class="b-judul">Surat untuk <em>Pasir Ipis</em></h2>
+  <p class="p drop">Pasir Ipis, kau bukan kampung kelahiranku. Leluhurku tidak dimakamkan di tanahmu. Aku bisa saja kembali ke Jampang Sagaranten — ke tanah tempat aku dilahirkan, ke tempat ibuku masih menungguku dengan pangkuannya yang hangat.</p>
+  <p class="p">Tapi cinta tidak mengenal batas administratif. <em>Dan aku sudah terlanjur mencintaimu.</em> Kepada siapapun yang membaca naskah ini — ini bukan kisah kepahlawanan. Ini kisah seorang manusia biasa yang kebetulan punya rasa yang terlalu besar untuk disimpan sendiri.</p>
+  <div class="bait">
+    <span>Selama gunung ini masih berdiri,</span>
+    <span class="bold">Si Jampang tidak akan berhenti.</span>
+    <span class="kecil">— Anak Jampang Sagaranten, Sukabumi</span>
+  </div>
+</div>
+
+</div>
+
+<!-- ════════ TESTIMONI ════════ -->
+<section class="testi-section" id="testimoni">
+  <div class="testi-inner">
+    <div class="testi-header">
+      <span class="t-label">Suara Pembaca</span>
+      <h2>Kisah ini Menggerakkan<br><em>Hatimu?</em></h2>
+      <p>Tuliskan apa yang kamu rasakan setelah membaca. Setiap kata adalah dukungan nyata.</p>
+    </div>
+
+    <div class="testi-stats">
+      <div class="ts-item"><span class="ts-num" id="ts-total">0</span><span class="ts-lbl">Testimoni</span></div>
+      <div class="ts-item"><span class="ts-num" id="ts-terharu">0</span><span class="ts-lbl">Terharu 😢</span></div>
+      <div class="ts-item"><span class="ts-num" id="ts-bangga">0</span><span class="ts-lbl">Bangga 💪</span></div>
+      <div class="ts-item"><span class="ts-num" id="ts-tergerak">0</span><span class="ts-lbl">Tergerak 🌿</span></div>
+    </div>
+
+    <div class="testi-form">
+      <span class="f-label">✦ Tulis Kesanmu</span>
+      <div class="f-row">
+        <input class="f-input" id="t-nama" placeholder="Nama kamu" maxlength="40">
+        <input class="f-input" id="t-kota" placeholder="Kota / Asal" maxlength="40">
+      </div>
+      <div class="rasa-wrap">
+        <span class="rasa-label">Apa yang kamu rasakan setelah membaca?</span>
+        <div class="rasa-grid">
+          <button class="rasa-btn" data-rasa="😢 Terharu">😢 Terharu</button>
+          <button class="rasa-btn" data-rasa="💪 Bangga">💪 Bangga</button>
+          <button class="rasa-btn" data-rasa="🌿 Tergerak">🌿 Tergerak</button>
+          <button class="rasa-btn" data-rasa="😤 Marah pada ketidakadilan">😤 Marah</button>
+          <button class="rasa-btn" data-rasa="🙏 Terinspirasi">🙏 Terinspirasi</button>
+          <button class="rasa-btn" data-rasa="💔 Sedih">💔 Sedih</button>
+        </div>
+      </div>
+      <textarea class="f-textarea" id="t-pesan" placeholder="Ceritakan apa yang kamu rasakan setelah membaca kisah Si Jampang..." maxlength="500"></textarea>
+      <button class="kirim-btn" onclick="kirimTesti()">Kirim Kesan →</button>
+    </div>
+
+    <div class="testi-list" id="testi-list"></div>
+  </div>
+</section>
+
+<!-- ════════ DONASI ════════ -->
+<section class="donasi-section" id="donasi">
+  <div class="donasi-inner">
+    <div class="donasi-header">
+      <span class="d-label">Dukung Si Jampang</span>
+      <h2>Cinta yang Nyata<br><em>Butuh Tindakan Nyata</em></h2>
+      <p>Si Jampang tidak meminta belas kasihan. Ia meminta bantuan nyata — untuk melanjutkan perjuangan yang sudah dimulai dengan 3.800 bibit kopi dan segalanya yang ia punya.</p>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div class="rasa-label" style="margin-bottom:10px">Pilih nominal donasi:</div>
+      <div class="nominal-grid">
+        <button class="nom-pill" data-nom="25000" onclick="pilihNom(this,'25000')">Rp 25.000</button>
+        <button class="nom-pill" data-nom="50000" onclick="pilihNom(this,'50000')">Rp 50.000</button>
+        <button class="nom-pill" data-nom="100000" onclick="pilihNom(this,'100000')">Rp 100.000</button>
+        <button class="nom-pill" data-nom="250000" onclick="pilihNom(this,'250000')">Rp 250.000</button>
+        <button class="nom-pill" data-nom="500000" onclick="pilihNom(this,'500000')">Rp 500.000</button>
+        <button class="nom-pill" data-nom="custom" onclick="pilihNom(this,'custom')">Nominal Lain</button>
+      </div>
+      <input class="f-input nom-custom" id="nom-custom" placeholder="Masukkan nominal (Rp)" style="display:none" type="number">
+    </div>
+
+    <input class="f-input" id="d-nama" placeholder="Nama donatur" style="margin-bottom:14px" maxlength="50">
+    <textarea class="f-textarea" id="d-pesan" placeholder="Pesan untuk Si Jampang (opsional)..." maxlength="300" style="min-height:80px"></textarea>
+
+    <div class="rek-card">
+      <div class="rek-baris"><div class="rek-icon">🏦</div><div><div class="rek-lbl">Bank</div><div class="rek-val">Bank Mandiri</div></div></div>
+      <div class="rek-baris"><div class="rek-icon">👤</div><div><div class="rek-lbl">Atas Nama</div><div class="rek-val">HUDRI</div></div></div>
+      <div class="rek-baris"><div class="rek-icon">🔢</div><div><div class="rek-lbl">Nomor Rekening</div><div class="rek-val besar">1820016298168</div></div></div>
+      <div class="rek-baris"><div class="rek-icon">📱</div><div><div class="rek-lbl">Konfirmasi WhatsApp</div><div class="rek-val" style="color:#4ade80">083871666136</div></div></div>
+    </div>
+
+    <button class="konfirm-btn" onclick="bukaModal()">Lanjutkan & Konfirmasi via WhatsApp →</button>
+
+    <div class="pesan-box">
+      <div class="pb-label">✦ Format Konfirmasi WhatsApp</div>
+      <p>Assalamu'alaikum, saya [Nama]<br>sudah transfer donasi Rp [Nominal]<br>untuk Si Jampang — Program Gunung Guruh Hijau Lestari<br>Bank Mandiri · 1820016298168 · a.n. HUDRI<br>Mohon konfirmasi. Terima kasih. 🌿</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PENUTUP ════════ -->
+<section class="penutup">
+  <div class="p-inner">
+    <div class="p-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+    <div class="p-puisi">
+      Pasir Ipis, kau terlalu indah untuk dilupakan.<br>
+      <span class="e">Terlalu berharga untuk dihancurkan.</span><br>
+      Dan Si Jampang ini — terlalu cinta<br>
+      <span class="e">untuk bisa diam.</span>
+    </div>
+    <div class="p-garis"></div>
+    <div class="p-sig">Seorang Anak Jampang Sagaranten</div>
+    <div class="p-sub">Kp. Pasir Ipis RT 041/RW 008 · Gunung Guruh · Sukabumi · 2026</div>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px">
+      <a href="https://malviejayagroup-prog.github.io/tolak-tambang-sukabumi/" target="_blank" style="color:var(--pucuk);font-size:.8rem;text-decoration:none">✍️ Petisi: malviejayagroup-prog.github.io/tolak-tambang-sukabumi</a>
+      <a href="https://hijau-gunung-guruh.tiiny.site" target="_blank" style="color:var(--emas2);font-size:.8rem;text-decoration:none">🌿 Program: hijau-gunung-guruh.tiiny.site</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  "Jejak Langkah Si Jampang" · Episode I · Kisah Nyata dari Pasir Ipis, Gunung Guruh, Sukabumi 🌿<br>
+  Program Gunung Guruh Hijau Lestari · 2026
+</footer>
+
+<!-- Modal konfirmasi donasi -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="tutupModal()">✕</button>
+    <h3>Konfirmasi Donasi</h3>
+    <div class="modal-row"><span>Nama</span><strong id="m-nama">—</strong></div>
+    <div class="modal-row"><span>Nominal</span><strong id="m-nominal">—</strong></div>
+    <div class="modal-row"><span>Rekening</span><strong>1820016298168 (Mandiri)</strong></div>
+    <div class="modal-row"><span>Atas Nama</span><strong>HUDRI</strong></div>
+    <p style="font-size:.8rem;color:rgba(242,232,208,.4);margin-top:16px;line-height:1.8;font-style:italic">Silakan transfer terlebih dahulu, lalu klik tombol di bawah untuk konfirmasi via WhatsApp.</p>
+    <a class="modal-wa" id="m-wa" href="#" target="_blank">💬 Konfirmasi via WhatsApp →</a>
+  </div>
+</div>
+
+<script>
+// ── Progress bar
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('prog').style.width=p+'%';
+});
+
+// ── Hujan rintik
+const hujanEl=document.getElementById('hujan');
+for(let i=0;i<30;i++){
+  const t=document.createElement('div');t.className='tetes';
+  t.style.cssText=`left:${Math.random()*100}%;height:${Math.random()*60+40}px;top:-120px;opacity:${Math.random()*.35+.08};animation-duration:${Math.random()*3+2.5}s;animation-delay:${Math.random()*5}s;`;
+  hujanEl.appendChild(t);
+}
+
+// ── Canvas particles
+const cv=document.getElementById('bg'),ctx=cv.getContext('2d');
+let W,H;function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);
+const pts=Array.from({length:35},()=>({x:Math.random()*1400,y:Math.random()*900,sz:Math.random()*1.4+.3,vx:(Math.random()-.5)*.14,vy:-(Math.random()*.28+.07),life:Math.random()*500,mxLife:350+Math.random()*350,col:Math.random()>.5?[61,122,58]:[154,114,0]}));
+(function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx+Math.sin(p.life*.016)*.2;p.y+=p.vy;p.life++;if(p.life>p.mxLife||p.y<-20){p.x=Math.random()*W;p.y=H+20;p.life=0;}const a=Math.sin((p.life/p.mxLife)*Math.PI)*.32;const[r,g,b]=p.col;ctx.beginPath();ctx.arc(p.x,p.y,p.sz,0,Math.PI*2);ctx.fillStyle=`rgba(${r},${g},${b},${a})`;ctx.fill();});requestAnimationFrame(loop);})();
+
+// ── Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){const siblings=[...e.target.parentElement.children];const idx=siblings.indexOf(e.target);setTimeout(()=>e.target.classList.add('v'),idx*55);}});
+},{threshold:.1});
+document.querySelectorAll('.b-label,.b-judul,.p,.hati,.alam,.dramatis,.bait,.gelar-box').forEach(el=>obs.observe(el));
+
+// ── Counter animasi sampul
+function animCount(el,target,dur=1500){
+  let start=null;const startVal=0;
+  function step(ts){if(!start)start=ts;const progress=Math.min((ts-start)/dur,1);el.textContent=Math.floor(progress*target);if(progress<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+// ── Data testimoni (pre-populated)
+let testiData=[
+  {nama:"Rina S.",kota:"Bandung",rasa:"😢 Terharu",pesan:"Membaca ini air mata saya tidak bisa dibendung. Ada orang yang benar-benar mencintai alam seperti ini — dan harus menanggung segalanya sendirian.",waktu:"2 jam lalu"},
+  {nama:"Deden F.",kota:"Jakarta",rasa:"💪 Bangga",pesan:"Si Jampang adalah wujud nyata dari kecintaan pada bumi yang tidak bisa dibeli dengan uang. Bangga ada orang seperti ini di Indonesia.",waktu:"4 jam lalu"},
+  {nama:"Yuli P.",kota:"Sukabumi",rasa:"🌿 Tergerak",pesan:"Saya orang Sukabumi dan baru tahu ada perjuangan sebesar ini di gunung kami sendiri. Saya malu sekaligus tergerak untuk ikut berbuat sesuatu.",waktu:"6 jam lalu"},
+  {nama:"Ahmad R.",kota:"Bogor",rasa:"🙏 Terinspirasi",pesan:"Di tengah dunia yang semakin materialistis, masih ada Si Jampang yang memilih jalan yang tidak mudah demi sesuatu yang lebih besar dari dirinya.",waktu:"1 hari lalu"},
+];
+
+let rasaTerpilih="";
+let nomTerpilih="";
+
+// ── Rasa buttons
+document.querySelectorAll('.rasa-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.rasa-btn').forEach(b=>b.classList.remove('aktif'));
+    btn.classList.add('aktif');
+    rasaTerpilih=btn.dataset.rasa;
+  });
+});
+
+// ── Kirim testimoni
+function kirimTesti(){
+  const nama=document.getElementById('t-nama').value.trim();
+  const kota=document.getElementById('t-kota').value.trim();
+  const pesan=document.getElementById('t-pesan').value.trim();
+  if(!nama){alert('Nama belum diisi.');return;}
+  if(!rasaTerpilih){alert('Pilih dulu apa yang kamu rasakan.');return;}
+  if(!pesan){alert('Tulis kesanmu dulu ya.');return;}
+  testiData.unshift({nama,kota:kota||'Indonesia',rasa:rasaTerpilih,pesan,waktu:'Baru saja'});
+  renderTesti();
+  updateStats();
+  document.getElementById('t-nama').value='';
+  document.getElementById('t-kota').value='';
+  document.getElementById('t-pesan').value='';
+  document.querySelectorAll('.rasa-btn').forEach(b=>b.classList.remove('aktif'));
+  rasaTerpilih='';
+  // Kirim ke WA sebagai notif
+  const msg=encodeURIComponent(`✦ Testimoni Baru — Si Jampang yang Malang\n\nDari: ${nama} (${kota||'Indonesia'})\nRasa: ${rasaTerpilih}\n\n"${pesan}"\n\n—\nProgram Gunung Guruh Hijau Lestari 🌿`);
+  // window.open(`https://wa.me/6283871666136?text=${msg}`,'_blank');
+}
+
+function renderTesti(){
+  const list=document.getElementById('testi-list');
+  list.innerHTML='';
+  testiData.slice(0,20).forEach((t,i)=>{
+    const div=document.createElement('div');
+    div.className='testi-item';
+    div.style.animationDelay=(i*.06)+'s';
+    div.innerHTML=`<div class="ti-top"><div><div class="ti-nama">${t.nama}</div><div class="ti-kota">${t.kota}</div></div><div class="ti-rasa">${t.rasa}</div></div><div class="ti-teks">"${t.pesan}"</div><div class="ti-waktu">${t.waktu}</div>`;
+    list.appendChild(div);
+  });
+}
+
+function updateStats(){
+  const total=testiData.length;
+  const terharu=testiData.filter(t=>t.rasa.includes('Terharu')).length;
+  const bangga=testiData.filter(t=>t.rasa.includes('Bangga')).length;
+  const tergerak=testiData.filter(t=>t.rasa.includes('Tergerak')).length;
+  document.getElementById('ts-total').textContent=total;
+  document.getElementById('ts-terharu').textContent=terharu;
+  document.getElementById('ts-bangga').textContent=bangga;
+  document.getElementById('ts-tergerak').textContent=tergerak;
+  document.getElementById('ctr-testi').textContent=total;
+}
+
+// ── Nominal donasi
+function pilihNom(btn,val){
+  document.querySelectorAll('.nom-pill').forEach(b=>b.classList.remove('aktif'));
+  btn.classList.add('aktif');
+  const customInput=document.getElementById('nom-custom');
+  if(val==='custom'){customInput.style.display='block';nomTerpilih='custom';}
+  else{customInput.style.display='none';nomTerpilih=val;}
+}
+
+// ── Modal donasi
+function bukaModal(){
+  const nama=document.getElementById('d-nama').value.trim()||'Donatur';
+  const pesan=document.getElementById('d-pesan').value.trim();
+  let nom=nomTerpilih;
+  if(nom==='custom'){nom=document.getElementById('nom-custom').value||'';}
+  if(!nom){alert('Pilih atau masukkan nominal donasi.');return;}
+  const nomFormatted='Rp '+parseInt(nom).toLocaleString('id-ID');
+  document.getElementById('m-nama').textContent=nama;
+  document.getElementById('m-nominal').textContent=nomFormatted;
+  const msg=encodeURIComponent(`Assalamu'alaikum, saya ${nama}\nsudah transfer donasi ${nomFormatted}\nuntuk Si Jampang — Program Gunung Guruh Hijau Lestari\nBank Mandiri · 1820016298168 · a.n. HUDRI\n${pesan?'\nPesan: '+pesan+'\n':''}\nMohon konfirmasi. Terima kasih. 🌿`);
+  document.getElementById('m-wa').href=`https://wa.me/6283871666136?text=${msg}`;
+  document.getElementById('modal').classList.add('aktif');
+}
+function tutupModal(){document.getElementById('modal').classList.remove('aktif');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)tutupModal();});
+
+// ── Init
+renderTesti();
+updateStats();
+
+// Counter sampul setelah load
+setTimeout(()=>{
+  animCount(document.getElementById('ctr-baca'),247);
+  animCount(document.getElementById('ctr-donatur'),18);
+},800);
+</script>
+</body>
+</html>

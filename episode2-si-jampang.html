@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Si Jampang yang Memilih — Episode II</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hitam:  #060a06;
+  --gelap:  #0a120a;
+  --jati:   #0f1c10;
+  --daun:   #1a3a1c;
+  --lumut:  #2a5c2c;
+  --embun:  #3d7a3a;
+  --pucuk:  #6aaa60;
+  --emas:   #9a7200;
+  --emas2:  #b88c0a;
+  --emas3:  #d4a820;
+  --kuning: #ecc840;
+  --krem:   #f2e8d0;
+  --abu:    #7a7060;
+  --merah:  #8b2020;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--hitam); color:var(--krem); font-family:'Lora',Georgia,serif; overflow-x:hidden; }
+
+/* Progress bar */
+#prog { position:fixed; top:0; left:0; height:2px; width:0; background:linear-gradient(90deg,var(--daun),var(--emas3)); z-index:9999; transition:width .1s; }
+
+/* Canvas bg */
+#bg { position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.45; }
+
+/* Grain */
+body::after { content:''; position:fixed; inset:0; z-index:9998; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); opacity:.65; }
+
+/* ════ SAMBUNGAN EPISODE ════ */
+.ep-nav {
+  position:relative; z-index:10;
+  background: rgba(6,10,6,0.95);
+  border-bottom: 1px solid rgba(180,136,10,.12);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ep-nav-kiri {
+  font-family:'Cinzel',serif;
+  font-size:.55rem;
+  letter-spacing:.3em;
+  color:rgba(180,136,10,.4);
+  text-transform:uppercase;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition: color .3s;
+}
+.ep-nav-kiri:hover { color:var(--emas3); }
+.ep-nav-tengah {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:.85rem;
+  color:rgba(242,232,208,.25);
+  text-align:center;
+}
+.ep-badge {
+  font-family:'Cinzel',serif;
+  font-size:.55rem;
+  letter-spacing:.25em;
+  color:var(--emas2);
+  border:1px solid rgba(180,136,10,.25);
+  padding:4px 12px;
+  text-transform:uppercase;
+}
+
+/* ════ SAMPUL ════ */
+.sampul {
+  min-height:100vh;
+  position:relative; z-index:10;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:80px 24px;
+  text-align:center;
+  overflow:hidden;
+}
+.sampul::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(15,28,16,.97), transparent 65%),
+    linear-gradient(to bottom, #060a06 0%, #0a120a 40%, #060a06 100%);
+}
+
+/* Bintang diam di langit */
+.bintang { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.titik { position:absolute; border-radius:50%; background:white; animation:kedip linear infinite; }
+@keyframes kedip {
+  0%,100% { opacity:.08; transform:scale(1); }
+  50% { opacity:.35; transform:scale(1.3); }
+}
+
+.s-inner { position:relative; z-index:2; max-width:680px; }
+.s-ep { font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.5em; color:rgba(180,136,10,.4); text-transform:uppercase; margin-bottom:16px; animation:muncul 1.4s ease both; }
+.s-orn { display:flex; align-items:center; gap:14px; justify-content:center; margin-bottom:16px; animation:muncul 1.4s .1s ease both; }
+.s-orn-l { height:1px; width:44px; background:linear-gradient(to right,transparent,rgba(180,136,10,.4)); }
+.s-orn-l.r { background:linear-gradient(to left,transparent,rgba(180,136,10,.4)); }
+.s-orn-t { color:rgba(180,136,10,.4); font-size:.6rem; letter-spacing:.4em; }
+.s-label { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(.85rem,2vw,1rem); color:rgba(242,232,208,.35); letter-spacing:.15em; margin-bottom:10px; animation:muncul 1.4s .15s ease both; }
+.s-judul { font-family:'IM Fell English',serif; font-size:clamp(2rem,7vw,4.8rem); font-weight:400; line-height:1.1; color:var(--krem); text-shadow:0 4px 80px rgba(0,0,0,.9); animation:muncul 1.4s .25s ease both; }
+.s-judul em { color:var(--emas3); font-style:italic; }
+.s-garis { width:70px; height:1px; margin:22px auto; background:linear-gradient(to right,transparent,var(--emas2),transparent); animation:muncul 1.4s .4s ease both; }
+.s-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(.95rem,2.2vw,1.2rem); color:rgba(242,232,208,.5); line-height:1.9; margin-bottom:40px; animation:muncul 1.4s .5s ease both; }
+
+.s-cta { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; animation:muncul 1.4s .7s ease both; }
+.s-btn { padding:12px 24px; font-family:'Lora',serif; font-size:.88rem; cursor:pointer; border:none; transition:all .3s; text-decoration:none; display:inline-block; }
+.s-btn-baca { background:var(--daun); color:var(--krem); }
+.s-btn-baca:hover { background:var(--lumut); }
+.s-btn-ep1 { background:transparent; color:var(--emas3); border:1px solid rgba(180,136,10,.35); }
+.s-btn-ep1:hover { background:rgba(180,136,10,.06); }
+
+.scroll-cue { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); text-align:center; animation:muncul 1.4s 1.8s ease both; }
+.scroll-cue span { font-size:.58rem; letter-spacing:.22em; color:rgba(242,232,208,.2); text-transform:uppercase; display:block; margin-bottom:10px; }
+.scroll-bar { width:1px; height:50px; background:linear-gradient(to bottom,rgba(180,136,10,.35),transparent); margin:0 auto; animation:drip 2.8s 2s infinite; }
+@keyframes drip { 0%,100%{opacity:.2;transform:scaleY(.7)} 55%{opacity:1;transform:scaleY(1)} }
+@keyframes muncul { from{opacity:0;transform:translateY(22px);filter:blur(4px)} to{opacity:1;transform:translateY(0);filter:blur(0)} }
+
+/* ════ CERITA ════ */
+.cerita { position:relative; z-index:10; }
+.bab { max-width:660px; margin:0 auto; padding:80px 36px; }
+@media(max-width:580px) { .bab { padding:60px 20px; } }
+.sep { height:1px; max-width:440px; margin:0 auto; background:linear-gradient(to right,transparent,rgba(154,114,0,.18),transparent); position:relative; z-index:10; }
+.sep-orn { text-align:center; padding:18px; position:relative; z-index:10; font-size:.65rem; letter-spacing:.5em; color:rgba(180,136,10,.2); }
+
+.b-label { font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.4em; color:rgba(180,136,10,.45); text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:12px; opacity:0; transform:translateY(14px); transition:all .9s ease; }
+.b-label.v { opacity:1; transform:translateY(0); }
+.b-label::after { content:''; flex:1; height:1px; background:linear-gradient(to right,rgba(154,114,0,.18),transparent); }
+.b-judul { font-family:'IM Fell English',serif; font-size:clamp(1.4rem,4vw,2.2rem); font-style:italic; line-height:1.3; color:var(--krem); margin-bottom:26px; opacity:0; transform:translateY(18px); transition:all 1s .06s ease; }
+.b-judul.v { opacity:1; transform:translateY(0); }
+.b-judul em { color:var(--emas3); }
+
+.p { font-family:'Lora',serif; font-size:clamp(.95rem,1.8vw,1.06rem); line-height:2.1; color:rgba(242,232,208,.75); margin-bottom:20px; text-align:justify; opacity:0; transform:translateY(16px); transition:all 1s ease; }
+.p.v { opacity:1; transform:translateY(0); }
+.p em { color:var(--pucuk); font-style:italic; }
+.p strong { color:var(--krem); font-weight:600; }
+.p .e { color:var(--emas3); }
+.p.drop::first-letter { font-family:'IM Fell English',serif; font-size:4.5rem; font-weight:400; float:left; line-height:.72; margin-right:10px; margin-top:8px; color:var(--emas3); }
+
+.hati { margin:34px 0; padding:22px 26px; border-left:2px solid rgba(154,114,0,.4); background:rgba(154,114,0,.04); opacity:0; transform:translateX(-16px); transition:all 1s ease; }
+.hati.v { opacity:1; transform:translateX(0); }
+.hati p { font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.2rem); color:rgba(242,232,208,.85); line-height:2; }
+.hati cite { display:block; margin-top:10px; font-size:.68rem; letter-spacing:.15em; color:rgba(180,136,10,.5); text-transform:uppercase; font-style:normal; }
+
+.alam { margin:26px 0; padding:26px 22px; background:linear-gradient(135deg,rgba(15,28,16,.7),rgba(10,18,10,.4)); border:1px solid rgba(61,122,58,.1); border-left:2px solid rgba(61,122,58,.25); opacity:0; transform:translateY(18px); transition:all 1s ease; }
+.alam.v { opacity:1; transform:translateY(0); }
+.alam p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(.95rem,2vw,1.1rem); color:rgba(180,210,170,.7); line-height:2.1; }
+
+.dramatis { text-align:center; padding:42px 20px; margin:34px 0; border-top:1px solid rgba(154,114,0,.1); border-bottom:1px solid rgba(154,114,0,.1); opacity:0; transition:all 1s ease; }
+.dramatis.v { opacity:1; }
+.dramatis .angka { font-family:'IM Fell English',serif; font-size:clamp(2.8rem,8vw,5rem); color:var(--emas3); display:block; line-height:1; }
+.dramatis .ket { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(.9rem,2vw,1.05rem); color:rgba(242,232,208,.35); margin-top:10px; display:block; }
+
+.bait { text-align:center; padding:36px 20px; margin:34px 0; opacity:0; transition:all 1s ease; }
+.bait.v { opacity:1; }
+.bait span { display:block; font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.3vw,1.2rem); color:rgba(242,232,208,.6); line-height:2.5; }
+.bait span.bold { color:var(--emas3); font-size:clamp(1.05rem,2.5vw,1.3rem); }
+.bait span.kecil { font-size:clamp(.8rem,1.6vw,.92rem); color:rgba(242,232,208,.3); }
+
+/* Foto malam sawah */
+.foto-malam {
+  margin:48px 0;
+  position:relative;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 1.2s ease;
+}
+.foto-malam.v { opacity:1; transform:translateY(0); }
+.foto-malam img {
+  width:100%;
+  display:block;
+  filter:brightness(.85) contrast(1.1) saturate(.8);
+}
+.foto-malam .foto-ket {
+  position:absolute;
+  bottom:0; left:0; right:0;
+  padding:40px 24px 20px;
+  background:linear-gradient(to top, rgba(6,10,6,.95), transparent);
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:.85rem;
+  color:rgba(242,232,208,.5);
+  letter-spacing:.06em;
+  text-align:center;
+}
+
+.foto-diptych {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  margin:48px 0;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 1.2s ease;
+}
+.foto-diptych.v { opacity:1; transform:translateY(0); }
+.foto-diptych img {
+  width:100%;
+  display:block;
+  filter:brightness(.8) contrast(1.1) saturate(.7);
+}
+.foto-diptych-ket {
+  grid-column:1/-1;
+  padding:14px 0 0;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:.82rem;
+  color:rgba(242,232,208,.35);
+  text-align:center;
+  letter-spacing:.05em;
+}
+
+@media(max-width:500px) {
+  .foto-diptych { grid-template-columns:1fr; }
+}
+
+/* ════ PENUTUP ════ */
+.penutup { background:var(--hitam); padding:100px 36px; text-align:center; position:relative; z-index:10; overflow:hidden; }
+.penutup::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(26,58,28,.2),transparent); }
+.p-inner { max-width:520px; margin:0 auto; position:relative; z-index:2; }
+.p-orn { font-size:.6rem; letter-spacing:.55em; color:rgba(180,136,10,.25); margin-bottom:28px; }
+.p-puisi { font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1.05rem,2.5vw,1.28rem); line-height:2.5; color:rgba(242,232,208,.75); margin-bottom:40px; }
+.p-puisi .e { color:var(--emas3); display:block; }
+.p-garis { width:36px; height:1px; background:var(--emas2); margin:0 auto 14px; }
+.p-sig { font-family:'Cinzel',serif; font-size:.82rem; color:var(--emas2); letter-spacing:.1em; margin-bottom:4px; }
+.p-sub { font-size:.7rem; color:rgba(242,232,208,.25); letter-spacing:.08em; }
+
+/* Navigasi episode */
+.ep-navigasi {
+  background:rgba(10,18,10,.8);
+  border-top:1px solid rgba(180,136,10,.12);
+  padding:48px 36px;
+  position:relative; z-index:10;
+  text-align:center;
+}
+.ep-navigasi p {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:.92rem;
+  color:rgba(242,232,208,.3);
+  margin-bottom:24px;
+}
+.ep-links {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.ep-link {
+  padding:10px 22px;
+  font-family:'Lora',serif;
+  font-size:.85rem;
+  text-decoration:none;
+  border:1px solid rgba(180,136,10,.2);
+  color:rgba(242,232,208,.5);
+  transition:all .3s;
+}
+.ep-link:hover { border-color:var(--emas2); color:var(--emas3); background:rgba(180,136,10,.05); }
+.ep-link.aktif { border-color:rgba(180,136,10,.35); color:var(--emas3); background:rgba(180,136,10,.04); }
+
+footer { background:#030503; padding:16px 32px; text-align:center; position:relative; z-index:10; font-size:.62rem; color:rgba(255,255,255,.14); letter-spacing:.1em; line-height:2.2; }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<canvas id="bg"></canvas>
+
+<!-- NAVIGASI EPISODE -->
+<nav class="ep-nav">
+  <a href="index.html" class="ep-nav-kiri">← Kembali ke Episode I</a>
+  <span class="ep-nav-tengah">Si Jampang — Kisah Nyata dari Pasir Ipis</span>
+  <span class="ep-badge">Episode II</span>
+</nav>
+
+<!-- SAMPUL -->
+<section class="sampul">
+  <div class="bintang" id="bintang"></div>
+
+  <div class="s-inner">
+    <p class="s-ep">Episode Kedua · Kisah Nyata dari Pasir Ipis</p>
+    <div class="s-orn">
+      <div class="s-orn-l"></div>
+      <span class="s-orn-t">✦</span>
+      <div class="s-orn-l r"></div>
+    </div>
+    <p class="s-label">Si Jampang yang Malang · Berlanjut</p>
+    <h1 class="s-judul">Si Jampang<br><em>yang Memilih</em></h1>
+    <div class="s-garis"></div>
+    <p class="s-sub">
+      Ada harga untuk setiap pilihan yang lahir dari cinta.<br>
+      Ia tahu harganya. Dan ia tetap memilih.
+    </p>
+    <div class="s-cta">
+      <a href="#cerita" class="s-btn s-btn-baca">Baca Kisahnya ↓</a>
+      <a href="index.html" class="s-btn s-btn-ep1">← Episode I</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Gulir ke bawah</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- CERITA -->
+<div class="cerita" id="cerita">
+
+  <!-- BAB I -->
+  <div class="bab">
+    <div class="b-label">I · Ketika Alam Memanggil</div>
+    <h2 class="b-judul">Ia Pergi Bukan Karena <em>Ingin Pergi</em></h2>
+
+    <p class="p drop">
+      Empat tahun sebelum ia kembali ke Pasir Ipis dengan tangan kosong dan pikiran yang penuh, ada sebuah momen yang tidak bisa ia jelaskan dengan bahasa yang masuk akal. Bukan mimpi. Bukan bisikan mistis. Hanya sebuah tarikan — seperti ketika akar pohon mencari air di kedalaman tanah yang belum pernah disentuh. Pelan, tidak terburu-buru, tapi tidak bisa dihentikan.
+    </p>
+
+    <p class="p">
+      Ia pergi. Sendirian. Membawa ransel yang lebih ringan dari beban yang ia tinggalkan — pertanyaan-pertanyaan tentang tanah, tentang petani, tentang mengapa orang yang memberi makan dunia selalu menjadi yang paling lapar di dalam dunia itu sendiri.
+    </p>
+
+    <div class="alam">
+      <p>Dari satu kota ke kota lain di kepulauan ini, ia berjalan ke arah di mana tanah berbicara paling keras. Ke lereng-lereng yang belum dipetakan oleh tangan investor. Ke sawah-sawah yang dikerjakan oleh orang tua yang putra-putrinya sudah pergi ke pabrik karena bertani tidak lagi menguntungkan.</p>
+    </div>
+
+    <p class="p">
+      Ia tidur di mana ia bisa tidur. Di hutan, di saung yang pintunya tidak bisa dikunci, di lantai rumah orang-orang yang cukup baik hati untuk tidak menanyakan siapa ia dan dari mana ia datang. Malam-malam seperti itu — dengan langit-langit yang entah kayu lapuk entah dedaunan, dengan suara binatang malam yang lebih akrab daripada suara manusia — bukan malam yang menyiksa. Ia adalah malam yang mendidik dengan cara yang tidak bisa diajarkan di bangku universitas manapun.
+    </p>
+
+    <div class="dramatis">
+      <span class="angka">4</span>
+      <span class="ket">tahun ia belajar pertanian tanpa gelar — dari tanah, dari petani, dari hutan yang belum memiliki nama di peta manapun</span>
+    </div>
+
+    <p class="p">
+      Tiga tahun. Ia belajar bukan dari buku — meskipun ia membaca buku. Ia belajar dari tangan orang-orang yang sudah mengerjakan tanah ini jauh sebelum ada departemen pertanian, jauh sebelum ada penyuluh yang datang dengan koper penuh brosur tentang cara menanam yang "benar". Ia belajar tentang ritme musim, tentang membaca tanah dari warnanya, tentang pohon-pohon yang menjadi penanda bahwa air ada di bawah sana — pengetahuan yang tidak ada di dalam kurikulum apapun karena ia tidak bisa dikurasi menjadi soal pilihan ganda.
+    </p>
+
+    <div class="hati">
+      <p>Orang-orang universitas menyebut ini "studi lapangan". Tapi bagi Si Jampang, ini bukan studi. Ini kehidupan. Bedanya adalah: dalam studi lapangan, kamu pulang ke kampus setelah beberapa minggu. Dalam kehidupan, kamu tidak punya kampus untuk pulang ke sana.</p>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="sep-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <div class="sep"></div>
+
+  <!-- BAB II -->
+  <div class="bab">
+    <div class="b-label">II · Membangun di Atas Mimpi</div>
+    <h2 class="b-judul">Ia Bangun Semuanya.<br><em>Lalu Ia Memilih untuk Kehilangan Semuanya.</em></h2>
+
+    <p class="p drop">
+      Ketika ia kembali ke Pasir Ipis, ia tidak kembali dengan tangan kosong dalam arti yang sebenarnya. Ia membawa sesuatu yang lebih berat dari uang: pengetahuan yang sudah diuji oleh ratusan hari di lapangan, keyakinan yang sudah dibakar dan ditempa oleh kesulitan, dan sebuah pertanyaan yang sudah berubah menjadi tekad.
+    </p>
+
+    <p class="p">
+      Ia membangun. Satu per satu, dengan ritme orang yang tahu bahwa fondasi lebih penting dari atap. Pertama, grosir sembako — karena komunitas butuh pangan sehari-hari dan ia butuh modal untuk mimpi yang lebih besar. Lalu depot air minum, karena ia sudah melihat cukup banyak desa yang kehabisan air bersih untuk tahu bahwa air adalah modal yang paling fundamental. Kemudian kolam perikanan, karena protein adalah bagian dari ketahanan pangan yang sering dilupakan ketika orang bicara tentang beras dan sayur.
+    </p>
+
+    <div class="dramatis">
+      <span class="angka">3</span>
+      <span class="ket">usaha ia bangun dengan tangannya sendiri — sembako, air, ikan. Tiga pilar ketahanan pangan yang paling dasar.</span>
+    </div>
+
+    <p class="p">
+      Selama dua tahun, semuanya berjalan. Tidak mewah — ia tidak pernah membangun sesuatu untuk menjadi mewah. Tapi cukup. Cukup untuk membuktikan bahwa ia bisa. Cukup untuk memberi ia waktu dan ruang untuk memikirkan langkah berikutnya.
+    </p>
+
+    <div class="hati">
+      <p>Dan langkah berikutnya itu terlalu besar untuk diukur dengan kalkulator yang wajar. Ia melihat lereng gunung di depannya — tanah yang belum sepenuhnya produktif, tanah yang menyimpan potensi yang lebih besar dari apapun yang bisa dihasilkan oleh kolam ikan atau rak sembako. Dan ia memutuskan untuk mengorbankan yang sudah ada demi sesuatu yang belum ada tapi harus ada.</p>
+    </div>
+
+    <p class="p">
+      <span class="e">Tiga ribu delapan ratus bibit.</span> Kopi, dan tanaman-tanaman lain yang dipilih bukan sembarangan — dipilih karena mereka adalah bagian dari ekosistem, bukan hanya komoditas. Ia menanam bukan seperti orang yang menanam untuk panen berikutnya. Ia menanam seperti orang yang menanam untuk anak cucunya — dengan sabar yang jauh melampaui kalkulasi untung-rugi musim ini.
+    </p>
+
+    <div class="alam">
+      <p>Di lereng gunung itu, dengan tangan yang sudah tahu cara berbicara dengan tanah, ia meletakkan bibit satu per satu. Setiap lubang yang ia gali adalah sebuah pertaruhan. Setiap bibit yang ia tanam adalah sebuah doa yang tidak diucapkan dengan mulut tapi dengan tindakan — cara yang paling jujur untuk berdoa.</p>
+    </div>
+
+    <p class="p">
+      Tapi pertaruhan seperti itu memiliki harga. Dan harganya adalah habisnya semua yang sudah dibangun selama dua tahun. Grosir. Depot air. Kolam ikan. Semuanya dikorbankan untuk lereng gunung yang masih kosong itu, untuk tiga ribu delapan ratus bibit yang belum tahu apakah mereka akan disambut atau ditolak oleh tanah.
+    </p>
+
+    <div class="bait">
+      <span>Orang bijak berkata: jangan taruhkan semua telur dalam satu keranjang.</span>
+      <span class="bold">Si Jampang tidak memiliki pilihan itu.</span>
+      <span class="kecil">Karena yang ia miliki bukan telur — ia memiliki keyakinan.<br>Dan keyakinan tidak bisa dibagi-bagi.</span>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="sep-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <div class="sep"></div>
+
+  <!-- BAB III — FOTO MALAM -->
+  <div class="bab">
+    <div class="b-label">III · Malam di Sawah</div>
+    <h2 class="b-judul">Jam 21:37. <em>Ia Masih di Sana.</em></h2>
+
+    <p class="p drop">
+      Ada yang tidak dimengerti oleh orang-orang yang hanya mengenal Si Jampang dari cerita-ceritanya: bahwa di balik semua pemikiran besar tentang reforma agraria dan kedaulatan pangan, ada seorang lelaki yang syarafnya terjepit — yang setiap kali mengangkat beban merasakan nyeri yang menjalar dari punggung ke kaki — yang dua bulan ini menjadi kuli panggul gabah agar keluarganya tidak melihatnya diam.
+    </p>
+
+    <p class="p">
+      Bukan karena ia tidak punya pilihan lain. Tapi karena ia memilih pilihan yang paling jujur: bahwa cinta kepada keluarga bukan hanya diekspresikan dengan kata-kata atau dengan visi yang besar, tapi juga dengan punggung yang membungkuk dan langkah yang pelan di pematang sawah ketika dunia sudah tidur.
+    </p>
+
+    <!-- FOTO DIPTYCH -->
+    <div class="foto-diptych">
+      <img src="foto-sawah-1.jpg" alt="Sawah malam — padi yang sudah dipanen berserakan di pematang" onerror="this.parentElement.style.display='none'">
+      <img src="foto-sawah-2.jpg" alt="Sosok Si Jampang di tumpukan padi, jam 21:37" onerror="this.parentElement.style.display='none'">
+      <div class="foto-diptych-ket">Pasir Ipis, Gunung Guruh · Jam 21:37 · Ia masih bekerja ketika dunia sudah tidur.</div>
+    </div>
+
+    <!-- Versi teks untuk saat foto tidak terpasang -->
+    <div class="alam">
+      <p>Dua foto dari malam itu. Yang pertama: padi yang sudah dipotong berserakan di pematang, cahaya kecil di ujung jalan, kegelapan yang begitu pekat hingga langit dan tanah hampir tidak bisa dibedakan. Yang kedua: sosok yang membungkuk di tumpukan padi — hampir menyatu dengan beban, hampir tidak terlihat di balik kegelapan, tapi ada. Masih ada.</p>
+    </div>
+
+    <p class="p">
+      Foto itu diambil bukan untuk dipamerkan. Foto itu diambil karena ada sesuatu yang perlu diingat — bahwa ini bukan cerita tentang pahlawan yang hidupnya bersih dan mudah. Ini cerita tentang manusia yang merasakan sakit, yang kadang-kadang lelah, yang harus turun ke sawah malam-malam bukan karena ia suka bekerja dalam gelap, tapi karena ia cukup mencintai orang-orangnya untuk tidak terlihat menyerah.
+    </p>
+
+    <div class="hati">
+      <p>Malam itu, di antara rumpun padi yang sudah dipanen, ia merasakan sesuatu yang tidak bisa dinamai dengan satu kata. Bukan sedih. Bukan bahagia. Bukan bangga. Mungkin yang paling mendekati adalah: <em class="e">hadir</em>. Ia hadir sepenuhnya — di sini, di tanah ini, dalam tubuh ini, dengan semua sakitnya dan semua harapannya yang belum padam.</p>
+    </div>
+
+    <p class="p">
+      Syaraf yang terjepit tidak bisa membaca esai. Punggung yang sakit tidak peduli dengan reforma agraria. Tapi tangan yang sama yang mengetik manifesto di siang hari adalah tangan yang memikul gabah di malam hari. Dan justru karena keduanya ada dalam satu tubuh — inilah yang membuat gerakan ini berbeda dari gerakan yang hanya lahir dari ruang diskusi.
+    </p>
+
+    <div class="bait">
+      <span>Ia menulis tentang petani di siang hari.</span>
+      <span class="bold">Di malam hari, ia adalah petani itu.</span>
+      <span class="kecil">Tidak ada jarak antara pemikiran dan kehidupan.<br>Itulah satu-satunya integritas yang ia punya.</span>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="sep-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <div class="sep"></div>
+
+  <!-- BAB IV -->
+  <div class="bab">
+    <div class="b-label">IV · Yang Masih Menyala</div>
+    <h2 class="b-judul">Usaha Habis. <em>Api Tidak.</em></h2>
+
+    <p class="p drop">
+      Ada warung cabang yang masih berdiri — satu titik kecil yang masih bisa menghidupi keluarga hari ini. Bukan kemewahan. Tapi cukup. Cukup untuk memastikan bahwa besok pagi ada nasi di meja, bahwa anak-anak bisa berangkat ke sekolah, bahwa hidup bisa terus berjalan sementara lereng gunung itu pelan-pelan mulai menghijau dengan tiga ribu delapan ratus bibit yang sudah ditanam.
+    </p>
+
+    <p class="p">
+      Dan di dalam semua keterbatasan itu, ada sesuatu yang tidak pernah benar-benar berhenti: platform digital yang sedang dibangun, esai-esai yang sedang ditulis, narasi-narasi yang sedang dibentuk dengan tujuan yang sangat jelas — untuk membuat suara petani Pasir Ipis terdengar oleh telinga yang selama ini memilih tidak mendengar.
+    </p>
+
+    <div class="alam">
+      <p>Kadang ia mengetik di bawah cahaya HP ketika listrik tidak stabil. Kadang ia menyelesaikan satu paragraf di sela-sela istirahat dari pekerjaan yang membuat punggungnya sakit. Bukan kondisi ideal untuk menulis manifesto. Tapi kondisi itulah yang membuat setiap kalimatnya terasa seperti bukan hanya kata-kata — karena ia ditulis oleh seseorang yang sedang menanggung kenyataan yang ia tuliskan.</p>
+    </div>
+
+    <div class="dramatis">
+      <span class="angka">3.800</span>
+      <span class="ket">bibit yang sudah ditanam di lereng Gunung Guruh — bukan sebagai komoditas, tapi sebagai argumen yang ditancapkan ke dalam tanah</span>
+    </div>
+
+    <p class="p">
+      Di Pasir Ipis, tiga ribu delapan ratus bibit itu masih tumbuh. Pelan — seperti semua hal yang tumbuh dengan benar memang harus pelan. Dan setiap pagi ketika Si Jampang melihat ke arah lereng itu, ada sesuatu yang menegaskan bahwa semua pengorbanan yang sudah dibuat bukan sia-sia. Pohon tidak berbohong. Ia tumbuh atau tidak tumbuh — dan tidak ada retorika yang bisa mengubah kenyataan itu.
+    </p>
+
+    <div class="hati">
+      <p>Mungkin inilah yang membedakan Si Jampang dari banyak orang yang juga marah pada ketidakadilan tapi tidak pernah benar-benar bertindak: ia tidak menunggu kondisi ideal untuk mulai. Ia mulai dari kondisi yang ada — bahkan ketika kondisi itu adalah punggung yang sakit, rekening yang tipis, dan malam-malam yang dihabiskan di sawah bukan karena pilihan tapi karena cinta.</p>
+    </div>
+  </div>
+
+</div>
+
+  <div class="sep"></div>
+  <div class="sep-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <div class="sep"></div>
+
+  <!-- BAB V — KEBAKARAN -->
+  <div class="bab">
+    <div class="b-label">V · Api yang Tidak Diminta</div>
+    <h2 class="b-judul">Delapan Bulan Lalu, <em>Semuanya Terbakar.</em></h2>
+
+    <p class="p drop">
+      Tidak ada yang bisa mempersiapkan diri untuk momen itu. Bukan karena ia tidak pernah membayangkan kemungkinan terburuk — orang yang sudah melewati sebanyak yang ia lewati pasti pernah membayangkan. Tapi ada perbedaan antara membayangkan kehilangan dan berdiri di depan kebun yang menjadi abu, mencium bau kopi yang terbakar sebelum sempat berbuah, melihat kacang inchi yang sudah mulai tumbuh menjangkau cahaya kini menjadi arang hitam di atas tanah yang masih panas.
+    </p>
+
+    <div class="alam">
+      <p>Api itu datang delapan bulan lalu. Entah dari mana asalnya — pertanyaan itu mungkin tidak akan pernah terjawab dengan kepastian yang memuaskan. Yang pasti adalah apa yang ditinggalkannya: lereng gunung yang tadinya mulai menghijau dengan tiga ribu delapan ratus harapan, kini menjadi hamparan abu yang masih berasap ketika pagi datang.</p>
+    </div>
+
+    <p class="p">
+      Kopi yang sudah mulai tumbuh — yang ditanam dengan menghabiskan semua yang ia punya, yang menjadi alasan ia rela kehilangan grosir, depot air, dan kolam ikan — ludes. Kacang inchi yang ditanam di antara pohon-pohon kopi sebagai bagian dari ekosistem yang ia rancang dengan sangat sabar, ikut terbakar. Tidak ada yang tersisa kecuali tanah yang menghitam dan beberapa batang yang berdiri seperti tanda tanya di tengah kehancuran.
+    </p>
+
+    <div class="dramatis">
+      <span class="angka">~20%</span>
+      <span class="ket">yang tersisa. Bukan angka yang melegakan. Tapi cukup untuk membuktikan bahwa cerita itu pernah ada — dan belum selesai.</span>
+    </div>
+
+    <p class="p">
+      Dan di atas semua itu, hutang kepada investor masih berdiri tegak — tidak ikut terbakar, tidak ikut menjadi abu. Hutang tidak mengenal bencana. Ia hanya mengenal angka dan tanggal jatuh tempo.
+    </p>
+
+    <div class="hati">
+      <p>Malam setelah kebakaran itu, ia tidak berteriak. Tidak menangis dengan keras. Ia hanya duduk di tepi kebun yang masih berasap — sendirian, seperti kebanyakan momen terberat dalam hidupnya memang selalu dihadapi sendirian — dan membiarkan kepedihan itu mengendap ke dalam tanah bersama abu yang masih hangat.</p>
+      <p style="margin-top:16px">Ada pertanyaan yang tidak bisa ia jawab malam itu: apakah ini kecelakaan atau kesengajaan? Apakah alam sedang mengujinya atau ada tangan manusia di balik api itu? Pertanyaan itu masih menggantung sampai hari ini, tidak terjawab, tidak terlupakan.</p>
+    </div>
+
+    <p class="p">
+      Tapi ada sesuatu yang ia temukan di antara abu itu — sesuatu yang tidak ia cari tapi ada di sana. Dua puluh persen yang masih hidup. Beberapa pohon kopi yang entah karena angin, entah karena keberuntungan, entah karena sesuatu yang lebih besar dari keduanya — selamat. Berdiri. Masih hijau di tengah hitam.
+    </p>
+
+    <div class="alam">
+      <p>Pohon-pohon itu tidak tahu bahwa mereka seharusnya ikut terbakar. Mereka hanya tahu satu hal: akar mereka masih mencengkeram tanah, dan tanah itu masih bisa memberi makan. Jadi mereka terus tumbuh. Pelan. Diam. Tanpa tahu bahwa keberadaan mereka adalah bukti paling keras bahwa si penanam belum kalah.</p>
+    </div>
+
+    <p class="p">
+      Dua puluh persen. Dalam kalkulator bisnis, angka itu adalah kegagalan. Dalam bahasa pohon, angka itu adalah <span class="e">permulaan.</span>
+    </p>
+
+    <div class="bait">
+      <span>Api membakar apa yang terlihat.</span>
+      <span class="bold">Tapi akar ada di bawah tanah.</span>
+      <span>Dan akar — tidak bisa dibakar.</span>
+      <span class="kecil">Dua puluh persen yang tersisa bukan sisa dari kegagalan.<br>Ia adalah fondasi dari babak berikutnya.</span>
+    </div>
+  </div>
+
+<!-- PENUTUP -->
+<section class="penutup">
+  <div class="p-inner">
+    <div class="p-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+    <div class="p-puisi">
+      Ia tidak memilih jalan yang mudah.<br>
+      <span class="e">Ia memilih jalan yang benar.</span><br>
+      Dan kadang-kadang jalan yang benar<br>
+      adalah jalan yang harus kamu tempuh<br>
+      <span class="e">dengan punggung yang sakit dan hati yang penuh.</span><br><br>
+      Pasir Ipis masih menunggu.<br>
+      <span class="e">Dan Si Jampang — masih di sini.</span>
+    </div>
+    <div class="p-garis"></div>
+    <div class="p-sig">Seorang Anak Jampang Sagaranten</div>
+    <div class="p-sub">Kp. Pasir Ipis RT 041/RW 008 · Gunung Guruh · Sukabumi · 2026</div>
+  </div>
+</section>
+
+<!-- NAVIGASI EPISODE -->
+<div class="ep-navigasi">
+  <p>Kisah ini belum selesai. Setiap episode adalah satu lapisan dari perjuangan yang masih berjalan.</p>
+  <div class="ep-links">
+    <a href="index.html" class="ep-link">← Episode I: Si Jampang yang Malang</a>
+    <a href="#" class="ep-link aktif">Episode II: Si Jampang yang Memilih</a>
+    <a href="#" class="ep-link" style="opacity:.4;pointer-events:none">Episode III — Akan Datang</a>
+  </div>
+</div>
+
+<footer>
+  "Si Jampang yang Memilih" · Episode II · Kisah Nyata dari Pasir Ipis, Gunung Guruh, Sukabumi 🌿<br>
+  Program Gunung Guruh Hijau Lestari · Bahula Tani Nusantara · 2026
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('prog').style.width=p+'%';
+});
+
+// Bintang di sampul
+const bintangEl=document.getElementById('bintang');
+for(let i=0;i<55;i++){
+  const t=document.createElement('div');
+  t.className='titik';
+  const sz=Math.random()*1.8+0.4;
+  t.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;opacity:${Math.random()*.2+.04};animation-duration:${Math.random()*4+3}s;animation-delay:${Math.random()*6}s;`;
+  bintangEl.appendChild(t);
+}
+
+// Canvas particles
+const cv=document.getElementById('bg'),ctx=cv.getContext('2d');
+let W,H;
+function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+rsz();window.addEventListener('resize',rsz);
+const pts=Array.from({length:30},()=>({
+  x:Math.random()*1400,y:Math.random()*900,
+  sz:Math.random()*1.2+.3,
+  vx:(Math.random()-.5)*.12,
+  vy:-(Math.random()*.22+.06),
+  life:Math.random()*500,
+  mxLife:350+Math.random()*350,
+  col:Math.random()>.5?[61,122,58]:[154,114,0]
+}));
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    p.x+=p.vx+Math.sin(p.life*.016)*.18;
+    p.y+=p.vy; p.life++;
+    if(p.life>p.mxLife||p.y<-20){p.x=Math.random()*W;p.y=H+20;p.life=0;}
+    const a=Math.sin((p.life/p.mxLife)*Math.PI)*.28;
+    const[r,g,b]=p.col;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.sz,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${r},${g},${b},${a})`;ctx.fill();
+  });
+  requestAnimationFrame(loop);
+})();
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const siblings=[...e.target.parentElement.children];
+      const idx=siblings.indexOf(e.target);
+      setTimeout(()=>e.target.classList.add('v'),idx*55);
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.b-label,.b-judul,.p,.hati,.alam,.dramatis,.bait,.foto-malam,.foto-diptych').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

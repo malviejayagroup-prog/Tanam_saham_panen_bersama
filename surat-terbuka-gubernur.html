@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surat Terbuka kepada Gubernur Jawa Barat — Moch Malvie Alkhudriyah</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hijau-gelap: #0d1f0d;
+    --hijau-tua: #1a2e1a;
+    --emas: #c9a84c;
+    --emas-muda: #e8c96a;
+    --krem: #f0e8d0;
+    --krem-gelap: #d4c89a;
+    --putih-gading: #faf6ee;
+    --merah-bara: #8b2a2a;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--hijau-gelap);
+    color: var(--krem);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.35;
+  }
+
+  /* HEADER SURAT */
+  .kop-surat {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 0;
+  }
+
+  .kop-atas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    margin-bottom: 40px;
+  }
+
+  .kop-gerakan {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .kop-nama-gerakan {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--emas);
+  }
+
+  .kop-sub-gerakan {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+  }
+
+  .kop-tanggal {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.4);
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* LABEL SURAT TERBUKA */
+  .label-surat {
+    text-align: center;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .label-surat::before, .label-surat::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 120px);
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3));
+  }
+
+  .label-surat::before { left: 0; }
+  .label-surat::after {
+    right: 0;
+    background: linear-gradient(to left, transparent, rgba(201,168,76,0.3));
+  }
+
+  .label-surat span {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--emas);
+    background: var(--hijau-gelap);
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* KEPADA */
+  .kepada {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+
+  .kepada-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    margin-bottom: 12px;
+  }
+
+  .kepada-nama {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--putih-gading);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .kepada-jabatan {
+    font-size: 15px;
+    color: rgba(240,232,208,0.55);
+    font-style: italic;
+  }
+
+  /* ISI SURAT */
+  .isi-surat {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  .isi-surat p {
+    font-size: clamp(16px, 1.9vw, 18px);
+    color: rgba(240,232,208,0.85);
+    margin-bottom: 28px;
+    line-height: 1.95;
+    text-align: justify;
+  }
+
+  .isi-surat p.pembuka {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--putih-gading);
+    font-style: italic;
+  }
+
+  .isi-surat p.pembuka::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 5em;
+    font-weight: 900;
+    color: var(--emas);
+    float: left;
+    line-height: 0.75;
+    margin: 8px 12px -4px 0;
+  }
+
+  .isi-surat strong { color: var(--emas-muda); font-weight: 400; }
+  .isi-surat em { color: var(--krem); font-style: italic; }
+
+  /* Pemisah tengah */
+  .pemisah {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 48px 0;
+    color: var(--emas);
+    opacity: 0.4;
+  }
+
+  .pemisah::before, .pemisah::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+  }
+
+  .pemisah span {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+  }
+
+  /* Kotak permintaan konkret */
+  .permintaan {
+    margin: 48px 0;
+    border: 1px solid rgba(201,168,76,0.25);
+    overflow: hidden;
+  }
+
+  .permintaan-header {
+    background: rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 14px 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--emas);
+  }
+
+  .permintaan-item {
+    padding: 28px 32px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .permintaan-item:last-child { border-bottom: none; }
+
+  .permintaan-nomor {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-style: italic;
+    color: rgba(201,168,76,0.3);
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .permintaan-teks {
+    font-size: 16px;
+    color: rgba(240,232,208,0.85);
+    line-height: 1.8;
+  }
+
+  .permintaan-teks strong {
+    color: var(--emas-muda);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 17px;
+  }
+
+  /* Kutipan kuat */
+  .kutipan-kuat {
+    margin: 40px 0;
+    padding: 32px 40px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(13,31,13,0.5));
+    border-left: 3px solid var(--emas);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--putih-gading);
+  }
+
+  /* Tanda tangan */
+  .ttd {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .ttd-hormat {
+    font-size: 16px;
+    color: rgba(240,232,208,0.6);
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .ttd-nama {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-style: italic;
+    color: var(--emas);
+    margin-bottom: 4px;
+  }
+
+  .ttd-alias {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.6);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .ttd-detail {
+    font-size: 14px;
+    color: rgba(240,232,208,0.45);
+    line-height: 2;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 48px 40px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.3);
+    text-transform: uppercase;
+  }
+
+  footer .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--emas);
+    display: block;
+    text-transform: none;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  /* Animasi */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:600px) {
+    .kop-surat, .kepada, .isi-surat { padding-left: 24px; padding-right: 24px; }
+    .kop-atas { flex-direction: column; }
+    .kop-tanggal { text-align: left; }
+    .permintaan-item { grid-template-columns: 36px 1fr; gap: 14px; }
+    .kutipan-kuat { padding: 24px 24px; }
+    .label-surat::before, .label-surat::after { width: calc(50% - 100px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- KOP SURAT -->
+<div class="kop-surat reveal">
+  <div class="kop-atas">
+    <div class="kop-gerakan">
+      <span class="kop-nama-gerakan">Jaga Ngariksa Leweung</span>
+      <span class="kop-sub-gerakan">Bahula Tani Nusantara · Pasir Ipis, Gunung Guruh, Sukabumi</span>
+    </div>
+    <div class="kop-tanggal">
+      Pasir Ipis, Maret 2026<br>
+      <span style="font-size:9px;opacity:0.6">Gunung Guruh · Sukabumi · Jawa Barat</span>
+    </div>
+  </div>
+</div>
+
+<!-- LABEL -->
+<div style="max-width:780px;margin:0 auto;padding:0 40px;">
+  <div class="label-surat reveal">
+    <span>Surat Terbuka</span>
+  </div>
+</div>
+
+<!-- KEPADA -->
+<div class="kepada reveal">
+  <div class="kepada-label">Kepada Yang Terhormat</div>
+  <div class="kepada-nama">Bapak Gubernur Jawa Barat</div>
+  <div class="kepada-jabatan">Di tempat yang semoga selalu dalam keberkahan dan kejernihan hati</div>
+</div>
+
+<!-- ISI SURAT -->
+<div class="isi-surat">
+
+  <p class="pembuka reveal">
+    Assalamu'alaikum warahmatullahi wabarakatuh. Izinkan saya memperkenalkan diri — bukan dengan gelar akademis yang tidak saya miliki, bukan dengan jabatan institusional yang tidak saya sandang, tapi dengan nama yang diberikan orang tua saya dan dengan tanah yang sudah bertahun-tahun saya jaga dengan seluruh yang ada pada diri saya.
+  </p>
+
+  <p class="reveal">
+    Nama saya <strong>Moch Malvie Alkhudriyah</strong>, atau akrab dipanggil Kang Malvie. Saya lahir dan berakar di Jampang Sagaranten, Sukabumi — anak dari tanah yang sama yang sedang saya perjuangkan. Saya tinggal dan bekerja di <strong>Kampung Pasir Ipis, RT 041/RW 008, Gunung Guruh, Sukabumi</strong> — di kaki gunung yang hutannya masih menyimpan mata air, yang tanahnya masih mau menerima benih, yang petani-petaninya masih bangun sebelum subuh meski tidak ada yang menjamin bahwa kerja keras mereka akan menghasilkan kehidupan yang layak.
+  </p>
+
+  <p class="reveal">
+    Empat tahun yang lalu, saya melakukan sesuatu yang banyak orang anggap tidak masuk akal: saya meninggalkan semua kenyamanan yang ada untuk berkeliling ke berbagai wilayah pertanian di Indonesia — tidur di hutan, di saung yang tidak bisa dikunci, di lantai rumah orang yang cukup baik hati untuk menerima seorang asing yang hanya membawa pertanyaan. Saya belajar pertanian bukan dari universitas, tapi dari tanah itu sendiri — dari tangan petani tua yang pengetahuannya tidak ada dalam kurikulum manapun. Tiga tahun pengembaraan itu mengajarkan satu hal yang tidak bisa saya lupakan: <strong>petani Indonesia bukan orang yang malas atau bodoh. Mereka adalah orang yang kerja kerasnya sudah terlalu lama dinikmati oleh pihak lain.</strong>
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <p class="reveal">
+    Ketika saya kembali ke Pasir Ipis, saya membangun. Grosir sembako, depot air minum, kolam perikanan — tiga pilar kecil ketahanan pangan komunitas yang saya bangun dengan tangan sendiri selama dua tahun. Tapi ada yang lebih besar yang memanggil. Di lereng Gunung Guruh, ada lahan yang potensial, ada tanah yang menunggu, ada komunitas petani yang butuh lebih dari sekadar input subsidi — mereka butuh <em>lahan yang bisa mereka sebut milik mereka sendiri.</em>
+  </p>
+
+  <p class="reveal">
+    Maka saya pertaruhkan semua yang sudah dibangun. Saya tanam <strong>3.800 bibit kopi dan kacang inchi</strong> di lereng gunung itu — bukan sebagai investasi bisnis semata, tapi sebagai demonstrasi bahwa model pertanian komunitas yang mandiri dan ekologis itu mungkin. Bahwa petani bisa menjadi pengelola ekologi sekaligus pelaku ekonomi yang berdaulat.
+  </p>
+
+  <div class="kutipan-kuat reveal">
+    Delapan bulan lalu, kebun itu terbakar. Entah karena kecelakaan, entah karena sesuatu yang lebih gelap dari itu — saya tidak tahu. Yang saya tahu adalah: saya berdiri di depan tiga ribu delapan ratus harapan yang menjadi abu, dengan hutang kepada investor yang masih berdiri tegak, dan dengan dua puluh persen yang masih hidup sebagai satu-satunya bukti bahwa cerita ini pernah ada.
+  </div>
+
+  <p class="reveal">
+    Hari-hari ini, saya bekerja sebagai buruh panggul gabah untuk memastikan keluarga bisa makan — dengan syaraf terjepit yang membuat setiap beban terasa dua kali lebih berat. Malam-malam, saya turun ke sawah bukan karena pilihan tapi karena cinta kepada keluarga yang tidak bisa saya ekspresikan dengan cara lain saat ini. Dan di sela-sela itu semua, saya menulis — esai, narasi, manifesto tentang petani dan hutan — karena saya percaya bahwa perubahan yang nyata selalu dimulai dari cara berpikir yang berubah.
+  </p>
+
+  <p class="reveal">
+    Saya tidak menulis surat ini untuk meminta belas kasihan, Pak Gubernur. Saya menulis ini karena saya percaya bahwa Bapak — yang saya lihat begitu dekat dengan rakyat di berbagai kesempatan — memiliki kapasitas untuk mendengar sesuatu yang bukan sekadar proposal di atas kertas, tapi <strong>kesaksian dari seseorang yang hidupnya adalah bukti dari apa yang ia perjuangkan.</strong>
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <p class="reveal">
+    Program yang saya bangun bernama <strong>Jaga Ngariksa Leweung</strong> — dalam bahasa Sunda berarti "Menjaga dan Merawat Hutan" — di bawah naungan Bahula Tani Nusantara. Program ini bukan tentang satu orang. Ia adalah tentang komunitas petani di Pasir Ipis dan sekitarnya yang ingin membuktikan bahwa model pertanian komunitas yang mandiri, ekologis, dan adil itu bukan utopia — ia adalah kenyataan yang sedang kami bangun dengan tangan kami sendiri, dengan sumber daya yang sangat terbatas, tanpa dukungan kelembagaan yang memadai.
+  </p>
+
+  <p class="reveal">
+    Hutan Gunung Guruh bukan hanya warisan budaya Sunda. Ia adalah sistem penyangga kehidupan yang nyata — menyimpan air, menjaga kesuburan tanah, menstabilkan iklim mikro untuk seluruh kawasan pertanian di bawahnya. Ketika hutan ini terancam, yang terancam bukan hanya pohon-pohonnya — tapi masa depan ketahanan pangan komunitas yang hidupnya bergantung padanya. Dan komunitas itulah — bukan konglomerat, bukan pemodal dari luar — yang paling berhak menjaga dan mengelolanya.
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <p class="reveal">
+    Ada satu hal yang perlu Bapak ketahui — sesuatu yang tidak biasa saya ceritakan karena ia terasa terlalu personal. Bertahun-tahun lalu, saat pengembaraan saya membawa saya ke Subang, ke Kampung Manyingsal — saya tahu Bapak ada di sana. <strong>Cukup dekat untuk saya datangi. Tapi saya tidak berani.</strong>
+  </p>
+
+  <p class="reveal">
+    Bukan karena takut. Tapi karena saya malu. Saya melihat orang-orang yang datang kepada Bapak kebanyakan datang dengan tangan yang menengadah, berharap pulang membawa lembaran rupiah. Dan saya tidak mau menjadi bagian dari antrian itu. Saya memilih untuk pergi — untuk terus belajar, untuk membuktikan dulu bahwa saya layak berdiri di depan Bapak <em>bukan sebagai peminta, tapi sebagai seseorang yang mencintai hal yang sama dengan cara yang sama.</em>
+  </p>
+
+  <div class="kutipan-kuat reveal">
+    Perjuangan Bapak untuk petani dan alam bukan yang menginspirasi saya — cinta itu sudah ada dalam diri saya jauh sebelum saya tahu nama Bapak. Tapi ketika saya melihat Bapak, saya melihat cermin dari sesuatu yang sudah lama hidup di dalam dada saya.
+  </div>
+
+  <p class="reveal">
+    Dan itulah mengapa hari ini saya akhirnya berani menulis surat ini — bukan dengan tangan yang menengadah, tapi dengan <strong>tangan yang sudah berdarah karena bekerja.</strong>
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <!-- PERMINTAAN KONKRET -->
+  <div class="permintaan reveal">
+    <div class="permintaan-header">Dua Hal yang Saya Mohonkan</div>
+    <div class="permintaan-item">
+      <div class="permintaan-nomor">I</div>
+      <div class="permintaan-teks">
+        <strong>Pengembalian Akses Lahan Minimal 5 Hektar kepada Petani Komunitas Pasir Ipis</strong>
+        Bukan dalam bentuk bantuan atau hibah — tapi dalam bentuk pengakuan dan perlindungan atas hak komunitas petani untuk menggarap dan mengelola lahan yang selama ini sudah mereka jaga. Lima hektar yang dikembalikan ke tangan petani akan menjadi demonstrasi nyata bahwa reforma agraria bukan sekadar slogan kebijakan, tapi kenyataan yang bisa disentuh dan diukur.
+      </div>
+    </div>
+    <div class="permintaan-item">
+      <div class="permintaan-nomor">II</div>
+      <div class="permintaan-teks">
+        <strong>Dukungan Kelembagaan dari Pemerintah Provinsi untuk Program Jaga Ngariksa Leweung</strong>
+        Bukan dana — saya tidak meminta uang negara. Yang saya minta adalah dukungan dalam bentuk legitimasi kelembagaan: rekomendasi, kemitraan dengan dinas terkait, atau sekadar pengakuan resmi bahwa program ini sejalan dengan visi ketahanan pangan dan pelestarian lingkungan Jawa Barat. Dengan dukungan itu, program ini bisa mengakses jaringan dan sumber daya yang selama ini tertutup bukan karena kualitas programnya, tapi karena ia tidak memiliki "cap" kelembagaan yang diakui.
+      </div>
+    </div>
+  </div>
+
+  <p class="reveal">
+    Saya tidak datang dengan tangan kosong, Pak Gubernur. Saya datang dengan bukti — dengan tiga ribu delapan ratus bibit yang pernah ada, dengan dua puluh persen yang masih berdiri setelah kebakaran, dengan komunitas petani yang masih percaya bahwa tanah ini layak diperjuangkan, dan dengan keyakinan yang tidak pernah padam meski segalanya terasa gelap.
+  </p>
+
+  <p class="reveal">
+    Kami menyiapkan kursi di bawah pohon yang masih hidup itu, Pak Gubernur. <strong>Kami mengundang Bapak untuk datang ke Pasir Ipis — bukan untuk melihat kesuksesan yang sudah jadi, tapi untuk menyaksikan perjuangan yang masih berlangsung, dan untuk memutuskan apakah Bapak ingin menjadi bagian dari cerita yang sedang kami tulis.</strong>
+  </p>
+
+  <p class="reveal">
+    Karena hutan ini bukan milik kami seorang. Ia milik semua orang Jawa Barat yang masih ingin ada air bersih, udara segar, dan pangan yang nyata dua puluh tahun dari sekarang. Dan petani Pasir Ipis — dengan segala keterbatasan dan pengorbanan yang telah kami tanggung — adalah orang-orang yang paling serius dalam menjaga itu semua tetap ada.
+  </p>
+
+  <p class="reveal" style="font-style:italic;color:rgba(240,232,208,0.6);">
+    Wassalamu'alaikum warahmatullahi wabarakatuh.
+  </p>
+
+  <!-- TANDA TANGAN -->
+  <div class="ttd reveal">
+    <p class="ttd-hormat">Dengan hormat yang tulus dan harapan yang masih menyala,</p>
+    <div class="ttd-nama">Moch Malvie Alkhudriyah</div>
+    <div class="ttd-alias">Kang Malvie · Platform Manager, Bahula Tani Nusantara</div>
+    <div class="ttd-detail">
+      Kampung Pasir Ipis RT 041/RW 008<br>
+      Desa Gunung Guruh, Kecamatan Gunung Guruh<br>
+      Kabupaten Sukabumi, Jawa Barat<br>
+      083871666136
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo">Jaga Ngariksa Leweung</span>
+  Bahula Tani Nusantara · Pasir Ipis, Gunung Guruh, Sukabumi · Jawa Barat<br>
+  malviejayagroup-prog.github.io/Manifesto
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

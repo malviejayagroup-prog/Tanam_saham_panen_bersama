@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hutan Bukan Milik Negara — Jaga Ngariksa Leweung</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hijau-tua: #1a2e1a;
+    --hijau-gelap: #0d1f0d;
+    --emas: #c9a84c;
+    --emas-muda: #e8c96a;
+    --krem: #f0e8d0;
+    --krem-gelap: #d4c89a;
+    --merah-bara: #8b2a2a;
+    --putih-gading: #faf6ee;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--hijau-gelap);
+    color: var(--krem);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.85;
+    font-size: 18px;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.35;
+  }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 10vw;
+    position: relative;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(30,60,20,0.6) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 80%, rgba(201,168,76,0.08) 0%, transparent 50%);
+  }
+
+  .seri-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+  }
+
+  .cover-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .cover-label::before { content: '—— '; color: var(--emas-muda); }
+
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 5.5vw, 74px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--putih-gading);
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+
+  .cover h1 em {
+    color: var(--emas);
+    font-style: italic;
+    display: block;
+  }
+
+  .cover-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(to right, var(--emas), transparent);
+    margin: 40px 0;
+    position: relative; z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .cover-sub {
+    font-size: clamp(14px, 2vw, 17px);
+    font-style: italic;
+    color: var(--krem-gelap);
+    max-width: 560px;
+    position: relative; z-index: 1;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .cover-meta {
+    position: absolute;
+    bottom: 40px; right: 10vw;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.5);
+    text-transform: uppercase;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .cover-bg-text {
+    position: absolute;
+    bottom: -20px; right: -10px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(100px, 18vw, 260px);
+    font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+  /* Navigation between essays */
+  .nav-seri {
+    background: rgba(201,168,76,0.05);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 14px 10vw;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.4);
+  }
+
+  .nav-seri .aktif {
+    color: var(--emas);
+    border-bottom: 1px solid var(--emas);
+    padding-bottom: 2px;
+  }
+
+  .nav-seri .pemisah-nav { opacity: 0.3; }
+
+  .esai {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .section-mark {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-mark::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, rgba(201,168,76,0.4), transparent);
+    max-width: 60px;
+  }
+
+  .pembuka {
+    border-left: 3px solid var(--emas);
+    padding: 24px 32px;
+    margin: 0 0 80px 0;
+    background: rgba(201,168,76,0.04);
+    font-size: clamp(19px, 2.5vw, 24px);
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--putih-gading);
+    position: relative;
+  }
+
+  .pembuka::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--emas);
+    opacity: 0.4;
+    position: absolute;
+    top: -10px; left: 20px;
+    line-height: 1;
+  }
+
+  .esai p {
+    margin-bottom: 28px;
+    font-size: clamp(16px, 2vw, 19px);
+    color: rgba(240,232,208,0.88);
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .esai p.lead {
+    font-size: clamp(18px, 2.5vw, 22px);
+    color: var(--krem);
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
+  .esai p.lead::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 5em;
+    font-weight: 900;
+    color: var(--emas);
+    float: left;
+    line-height: 0.75;
+    margin: 8px 12px -4px 0;
+  }
+
+  .esai strong { color: var(--emas-muda); font-weight: 400; }
+  .esai em { color: var(--krem); font-style: italic; }
+
+  .pemisah {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 64px 0;
+    color: var(--emas);
+    opacity: 0.5;
+  }
+
+  .pemisah::before, .pemisah::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+  }
+
+  .pemisah span { font-family: 'Space Mono', monospace; font-size: 16px; }
+
+  .kutipan-tarik {
+    margin: 56px -60px;
+    padding: 40px 60px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(30,60,20,0.4));
+    border-top: 1px solid rgba(201,168,76,0.3);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(19px, 2.8vw, 26px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--putih-gading);
+    text-align: center;
+  }
+
+  .kutipan-tarik cite {
+    display: block;
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--emas);
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
+  /* Kotak fakta material */
+  .fakta-box {
+    margin: 40px 0;
+    padding: 32px 36px;
+    border: 1px solid rgba(201,168,76,0.25);
+    background: rgba(13,31,13,0.6);
+    position: relative;
+  }
+
+  .fakta-box::before {
+    content: 'FAKTA MATERIAL';
+    position: absolute;
+    top: -8px; left: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    background: var(--hijau-gelap);
+    color: var(--emas);
+    padding: 0 8px;
+  }
+
+  .fakta-box p {
+    font-size: 15px !important;
+    color: rgba(240,232,208,0.75) !important;
+    margin-bottom: 12px !important;
+    text-align: left !important;
+  }
+
+  .fakta-box p:last-child { margin-bottom: 0 !important; }
+
+  .fakta-box p strong { color: var(--emas-muda) !important; }
+
+  .penutup {
+    margin-top: 80px;
+    padding: 48px;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .penutup::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, var(--emas), var(--merah-bara));
+  }
+
+  .penutup p { margin-bottom: 20px !important; }
+
+  .penutup p:last-child {
+    margin-bottom: 0 !important;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(17px, 2.2vw, 21px) !important;
+    font-style: italic;
+    color: var(--emas-muda) !important;
+  }
+
+  .tanda-tangan {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tanda-tangan .nama {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--emas);
+  }
+
+  .tanda-tangan .jabatan {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+  }
+
+  .tanda-tangan .tempat {
+    font-size: 13px;
+    color: rgba(240,232,208,0.5);
+    margin-top: 4px;
+  }
+
+  /* Link ke esai berikutnya */
+  .navigasi-esai {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    gap: 20px;
+  }
+
+  .nav-esai-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 280px;
+  }
+
+  .nav-esai-btn span {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--emas);
+    font-weight: 300;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.4;
+  }
+
+  footer {
+    text-align: center;
+    padding: 60px 40px;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.35);
+    text-transform: uppercase;
+  }
+
+  footer .logo-teks {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--emas);
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .cover { padding: 60px 6vw; }
+    .esai { padding: 60px 24px; }
+    .kutipan-tarik { margin: 40px -24px; padding: 32px 24px; }
+    .nav-seri { padding: 14px 6vw; flex-wrap: wrap; }
+    .navigasi-esai { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGASI SERI -->
+<nav class="nav-seri">
+  <span>Seri Madilog × Ekologi</span>
+  <span class="pemisah-nav">·</span>
+  <span>Esai I: Petani Bukan Objek</span>
+  <span class="pemisah-nav">·</span>
+  <span class="aktif">Esai II: Hutan Bukan Milik Negara</span>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-bg-text">Leweung</div>
+  <p class="seri-label">Seri Madilog × Ekologi · Esai Kedua</p>
+  <p class="cover-label">Jaga Ngariksa Leweung · Manifesto</p>
+  <h1>Hutan Bukan Milik Negara, <em>Hutan Adalah Milik Orang yang Hidupnya Bergantung Padanya</em></h1>
+  <div class="cover-divider"></div>
+  <p class="cover-sub">Tentang klaim, kebenaran, dan pertanyaan yang selalu dihindari: siapa yang sesungguhnya berhak atas hutan — mereka yang menandatangani sertifikat, atau mereka yang minum dari airnya setiap hari?</p>
+  <p class="cover-meta">Bahula Tani Nusantara · Pasir Ipis, Gunung Guruh · 2025</p>
+</section>
+
+<!-- ESAI -->
+<article class="esai">
+
+  <div class="pembuka reveal">
+    Ada perbedaan antara kepemilikan di atas kertas dan kepemilikan yang nyata. Negara memiliki hutan di atas kertas. Tapi petani di kaki gunung — yang minum dari mata air yang dijaga oleh akar-akar pohon di atasnya, yang tanahnya subur karena serasah daun yang jatuh selama berabad-abad — dialah yang sesungguhnya memiliki hutan itu dalam pengertian yang paling material.
+  </div>
+
+  <div class="section-mark reveal">I · Sebuah Pertanyaan yang Tidak Pernah Dijawab dengan Jujur</div>
+
+  <p class="lead reveal">
+    Ketika seseorang berkata "hutan ini milik negara," kita perlu bertanya: milik dalam arti apa? Milik dalam arti siapa yang mendapat manfaat darinya, atau milik dalam arti siapa yang memegang kertasnya?
+  </p>
+
+  <p class="reveal">
+    Materialisme — cara berpikir pertama dalam <em>Madilog</em> — mengajarkan kita untuk tidak berhenti pada simbol dan klaim, tapi memeriksa kenyataan yang bisa disentuh dan diverifikasi. Maka mari kita periksa secara material: <strong>siapa yang sesungguhnya bergantung pada hutan, dan siapa yang sesungguhnya menjaganya?</strong>
+  </p>
+
+  <p class="reveal">
+    Jawabannya bukan misteri. Di setiap lereng gunung di Indonesia, jawaban itu sama: petani dan komunitas yang tinggal di sekitar hutan. Mereka yang minum dari mata airnya. Mereka yang bertanam di tanah yang disuburkan oleh ekosistemnya. Mereka yang tahu — dari pengetahuan yang diwariskan lintas generasi — pohon mana yang boleh ditebang, musim mana yang harus dijaga, dan bagian mana dari hutan yang adalah jantungnya, yang kalau dilukai akan membunuh seluruh sistem.
+  </p>
+
+  <p class="reveal">
+    Negara, dalam sebagian besar kasus, hadir bukan untuk menjaga hutan — tapi untuk mengklaim hutan. <strong>Ada perbedaan yang sangat besar antara dua kata itu: menjaga dan mengklaim.</strong> Yang menjaga menanggung biaya dan risiko. Yang mengklaim menikmati kewenangan tanpa menanggung konsekuensi dari kerusakan.
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <div class="section-mark reveal">II · Materialisme: Membaca Hutan Sebagai Kenyataan, Bukan Sebagai Kategori Hukum</div>
+
+  <p class="reveal">
+    Hutan adalah sistem kehidupan — bukan kategori administratif. Ia bukan "kawasan hutan negara" atau "hutan lindung" atau "hutan produksi". Ia adalah jaringan relasi yang sangat kompleks antara pohon, tanah, air, jamur, serangga, burung, mamalia, dan manusia. Relasi itu tidak bisa dipindahkan ke atas kertas. Ia hanya bisa dipahami oleh mereka yang hidup di dalamnya.
+  </p>
+
+  <div class="fakta-box reveal">
+    <p><strong>Satu hektar hutan tropis dewasa</strong> mampu menyimpan hingga 2.000 ton air di dalam tanahnya dan ekosistem di bawahnya — jauh lebih efisien dari bendungan buatan mana pun.</p>
+    <p><strong>Satu pohon berkanopi besar</strong> dapat menyerap lebih dari 100 liter air per hari melalui akarnya dan melepaskannya kembali sebagai uap — berkontribusi langsung pada siklus hujan lokal.</p>
+    <p><strong>Tanah hutan yang sehat</strong> mengandung lebih dari satu miliar mikroorganisme per gram — fondasi kesuburan yang membutuhkan ratusan tahun untuk terbentuk dan bisa hancur dalam satu musim tanam yang salah.</p>
+    <p><strong>Komunitas lokal</strong> yang tinggal di sekitar hutan terbukti secara konsisten lebih efektif dalam menjaga keutuhan hutan dibandingkan manajemen negara — ini bukan opini, ini temuan dari ratusan penelitian kehutanan komunitas di seluruh dunia.</p>
+  </div>
+
+  <p class="reveal">
+    Angka-angka di atas bukan untuk mengesankan. Ia untuk menunjukkan bahwa <strong>hutan bukan sekadar pohon yang berdiri — ia adalah infrastruktur kehidupan yang tidak bisa digantikan oleh teknologi apapun dengan biaya yang masuk akal.</strong> Ketika hutan Gunung Guruh berkurang, bukan hanya pemandangan yang berubah. Yang berubah adalah kapasitas tanah untuk menyimpan air, stabilitas iklim mikro, kesuburan lahan pertanian di bawahnya, dan pada akhirnya — ketahanan pangan seluruh komunitas di kawasan itu.
+  </p>
+
+  <div class="kutipan-tarik reveal">
+    "Mereka yang mendapat manfaat paling langsung dari rusaknya hutan tidak tinggal di dekat hutan. Mereka yang menanggung akibat paling langsung dari rusaknya hutan tidak punya kuasa atas keputusan tentang hutan."
+    <cite>— Kontradiksi yang Harus Diberi Nama</cite>
+  </div>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <div class="section-mark reveal">III · Dialektika: Siapa yang Menang Ketika Hutan Hilang?</div>
+
+  <p class="reveal">
+    Dialektika mengajarkan kita untuk mengajukan pertanyaan yang tidak nyaman: dalam setiap konflik kepentingan, siapa yang diuntungkan dan siapa yang dirugikan? Dan mengapa pihak yang dirugikan sering kali tidak punya suara dalam keputusan yang merugikannya?
+  </p>
+
+  <p class="reveal">
+    Ketika lahan hutan dialihfungsikan, ada aliran manfaat yang sangat tidak merata. Yang mendapat konsesi mendapat keuntungan ekonomi langsung — dan ia biasanya bukan bagian dari komunitas yang tinggal di sekitar hutan. Yang kehilangan sumber air, kesuburan tanah, dan stabilitas ekologi adalah komunitas yang tidak pernah diajak bicara dalam proses pengambilan keputusan itu. <strong>Ini adalah pola yang berulang dengan konsistensi yang luar biasa di seluruh kepulauan Indonesia.</strong>
+  </p>
+
+  <p class="reveal">
+    Kontradiksi ini dipertahankan oleh sebuah argumen yang terdengar masuk akal tapi rapuh secara logis: bahwa negara perlu mengelola hutan "untuk kepentingan umum" dan komunitas lokal tidak memiliki kapasitas untuk melakukannya secara bertanggung jawab. Argumen ini adalah pembalikan kenyataan yang bisa dibuktikan. <strong>Komunitas adat dan komunitas lokal di Indonesia telah mengelola hutan selama berabad-abad — jauh sebelum ada departemen kehutanan, jauh sebelum ada konsep kawasan hutan negara.</strong> Pengetahuan mereka tentang ekologi lokal jauh lebih dalam dari pengetahuan birokrat yang ditugaskan mengawasi kawasan yang belum pernah ia masuki.
+  </p>
+
+  <p class="reveal">
+    Di Pasir Ipis, kenyataan ini hadir dengan sangat konkret. Petani di sini tahu persis di mana mata air berasal, pohon apa yang menjadi penyangganya, dan apa yang terjadi pada produktivitas lahan di bawah ketika pohon-pohon di atas berkurang. Pengetahuan itu tidak ada di dokumen perencanaan kehutanan mana pun. Ia hanya ada di kepala dan tangan orang-orang yang hidup bersamanya.
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <div class="section-mark reveal">IV · Logika: Hak yang Seharusnya Tidak Perlu Diperjuangkan</div>
+
+  <p class="reveal">
+    Kalau secara material komunitas lokallah yang paling bergantung pada hutan dan paling terdampak oleh kerusakannya — maka logika yang konsisten hanya mengarah pada satu kesimpulan: <strong>komunitas itulah yang seharusnya memiliki hak paling kuat atas keputusan tentang hutan tersebut.</strong>
+  </p>
+
+  <p class="reveal">
+    Ini bukan argumen anti-negara. Ini adalah argumen tentang konsistensi antara siapa yang menanggung risiko dan siapa yang memiliki kewenangan. Dalam sistem yang adil, kewenangan harus mengikuti tanggung jawab — bukan sebaliknya. Komunitas yang hidupnya bergantung pada hutan sudah secara alamiah menanggung tanggung jawab atas kelangsungan hutan itu. <strong>Yang perlu diberikan kepada mereka bukan program, bukan bantuan, bukan pelatihan — tapi pengakuan atas hak yang sudah sejak lama mereka jalankan dalam praktik.</strong>
+  </p>
+
+  <p class="reveal">
+    Reforma agraria yang sesungguhnya bukan hanya redistribusi lahan. Ia adalah redistribusi kewenangan — hak untuk memutuskan, hak untuk merencanakan, hak untuk menolak, dan hak untuk mendapat manfaat yang adil dari sumber daya yang telah dijaga. Tanpa redistribusi kewenangan itu, redistribusi lahan hanyalah kosmetik: kertas berganti nama tapi relasi kekuasaan yang mendasar tidak berubah.
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <div class="section-mark reveal">V · Apa yang Sedang Kami Buktikan di Pasir Ipis</div>
+
+  <p class="reveal">
+    Kami tidak datang dengan teori. Kami datang dengan praktik.
+  </p>
+
+  <p class="reveal">
+    Di kaki Gunung Guruh, kami sedang membangun demonstrasi yang bisa dilihat, disentuh, dan diukur: bahwa komunitas petani yang mendapat akses penuh atas lahan dan hutan yang mereka jaga mampu menciptakan model ketahanan pangan yang jauh lebih tangguh, jauh lebih ekologis berkelanjutan, dan jauh lebih adil dalam distribusi manfaatnya dibandingkan model yang mengandalkan input eksternal dan pengelolaan dari atas.
+  </p>
+
+  <p class="reveal">
+    Tiga ribu delapan ratus bibit yang ditanam bukan sekadar angka produksi. Ia adalah argumen yang ditanamkan ke dalam tanah — <strong>argumen bahwa petani bisa, dan memang seharusnya, menjadi pengelola ekologi sekaligus pelaku ekonomi yang berdaulat.</strong>
+  </p>
+
+  <p class="reveal">
+    Setiap pohon yang tumbuh di sana adalah jawaban atas klaim bahwa komunitas lokal tidak bisa dipercaya mengelola hutan. Setiap liter air yang tetap mengalir dari mata air yang dijaga adalah bukti bahwa fungsi ekologi hutan bukan abstraksi — ia adalah kenyataan yang bisa dirasakan oleh siapa pun yang mau membuka matanya.
+  </p>
+
+  <div class="pemisah reveal"><span>✦</span></div>
+
+  <div class="penutup reveal">
+    <p>
+      Kami tidak meminta izin untuk mencintai tanah ini. Kami tidak meminta izin untuk menjaganya. Tapi kami menuntut sesuatu yang jauh lebih mendasar dari izin: <strong>pengakuan bahwa apa yang kami lakukan adalah sah, benar, dan perlu dilindungi — bukan sebagai kebaikan hati dari pihak yang berkuasa, tapi sebagai hak yang berakar pada kenyataan material yang tidak bisa dibantah.</strong>
+    </p>
+    <p>
+      Hutan ini bukan warisan nenek moyang kami dalam arti romantis. Ia adalah sistem kehidupan yang kami warisi dengan tanggung jawab untuk mewariskannya kembali — kepada anak-anak kami, kepada generasi yang belum lahir, kepada kota-kota yang minum dari air yang mengalir dari gunung ini tanpa pernah tahu dari mana asalnya.
+    </p>
+    <p>
+      Kalau ada yang masih bertanya siapa yang berhak atas hutan ini — datanglah ke sini. Minum air dari mata airnya. Rasakan tanah di bawah pohon-pohon yang dijaga oleh tangan petani selama bertahun-tahun. Lalu jawab sendiri pertanyaan itu dengan jujur.
+    </p>
+    <p>
+      <em>Hutan bukan milik negara. Hutan adalah milik orang yang hidupnya bergantung padanya — dan yang cukup mencintainya untuk tetap menjaganya bahkan ketika tidak ada yang melihat.</em>
+    </p>
+  </div>
+
+  <div class="tanda-tangan reveal">
+    <span class="nama">Hudri — Si Jampang</span>
+    <span class="jabatan">Platform Manager · Bahula Tani Nusantara</span>
+    <span class="tempat">Pasir Ipis, Gunung Guruh, Sukabumi · Jawa Barat</span>
+  </div>
+
+  <div class="navigasi-esai reveal">
+    <div class="nav-esai-btn">
+      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.4);">← Esai Sebelumnya</span>
+      <span>Petani Bukan Objek Pembangunan, Petani Adalah Subjek Peradaban</span>
+    </div>
+    <div class="nav-esai-btn" style="text-align:right;">
+      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.4);">Esai Berikutnya →</span>
+      <span>Pupuk, Benih, dan Rantai Ketergantungan yang Dirancang</span>
+    </div>
+  </div>
+
+</article>
+
+<footer>
+  <span class="logo-teks">Jaga Ngariksa Leweung</span>
+  Bahula Tani Nusantara · Pasir Ipis, Sukabumi · Seri Madilog × Ekologi
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

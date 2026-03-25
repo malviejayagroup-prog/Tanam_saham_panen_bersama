@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seri Madilog × Ekologi — Jaga Ngariksa Leweung</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hijau-gelap: #0d1f0d;
+    --hijau-tua: #1a2e1a;
+    --emas: #c9a84c;
+    --emas-muda: #e8c96a;
+    --krem: #f0e8d0;
+    --krem-gelap: #d4c89a;
+    --putih-gading: #faf6ee;
+    --merah-bara: #8b2a2a;
+    --abu-gelap: rgba(240,232,208,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--hijau-gelap);
+    color: var(--krem);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+
+  /* Grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.35;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 32px 10vw;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--emas);
+    text-decoration: none;
+  }
+
+  .logo span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    display: block;
+    font-style: normal;
+    margin-top: 2px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 120px 10vw 100px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 90% 10%, rgba(40,80,30,0.4) 0%, transparent 55%),
+      radial-gradient(ellipse at 5% 90%, rgba(201,168,76,0.06) 0%, transparent 50%);
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    bottom: -40px; right: -20px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(100px, 22vw, 320px);
+    font-weight: 900;
+    color: rgba(201,168,76,0.035);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-kecil {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6.5vw, 88px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--putih-gading);
+    max-width: 780px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.35s forwards;
+  }
+
+  .hero h1 .times { color: var(--emas); font-style: italic; }
+
+  .hero-garis {
+    width: 72px; height: 2px;
+    background: linear-gradient(to right, var(--emas), transparent);
+    margin: 36px 0;
+    position: relative; z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .hero-deskripsi {
+    max-width: 600px;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-style: italic;
+    color: var(--krem-gelap);
+    line-height: 1.8;
+    position: relative; z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.65s forwards;
+  }
+
+  .hero-meta {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.8s forwards;
+  }
+
+  .hero-meta-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-meta-item::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--emas);
+    opacity: 0.5;
+  }
+
+  /* ── PENGANTAR MADILOG ── */
+  .pengantar {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .pengantar-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pengantar-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, rgba(201,168,76,0.3), transparent);
+    max-width: 60px;
+  }
+
+  .pengantar p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: rgba(240,232,208,0.8);
+    margin-bottom: 20px;
+    line-height: 1.9;
+  }
+
+  .pengantar p strong { color: var(--emas-muda); font-weight: 400; }
+
+  /* Tiga pilar Madilog */
+  .tiga-pilar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.15);
+    margin: 40px 0 0;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .pilar {
+    background: var(--hijau-gelap);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .pilar-angka {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .pilar-nama {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 8px;
+  }
+
+  .pilar-desc {
+    font-size: 13px;
+    color: rgba(240,232,208,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── DAFTAR ESAI ── */
+  .daftar-esai {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .daftar-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .daftar-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, rgba(201,168,76,0.3), transparent);
+  }
+
+  /* Kartu esai */
+  .kartu-esai {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    border: 1px solid rgba(201,168,76,0.18);
+    margin-bottom: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kartu-esai:hover {
+    border-color: rgba(201,168,76,0.45);
+    background: rgba(201,168,76,0.03);
+  }
+
+  .kartu-esai:hover .kartu-nomor { background: rgba(201,168,76,0.12); }
+  .kartu-esai:hover .baca-link { color: var(--emas-muda); }
+
+  .kartu-nomor {
+    width: 72px;
+    background: rgba(201,168,76,0.06);
+    border-right: 1px solid rgba(201,168,76,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    transition: background 0.3s;
+    flex-shrink: 0;
+  }
+
+  .nomor-romawi {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-style: italic;
+    color: var(--emas);
+    line-height: 1;
+  }
+
+  .nomor-arab {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: rgba(201,168,76,0.4);
+    margin-top: 4px;
+  }
+
+  .kartu-konten {
+    padding: 28px 32px;
+  }
+
+  .kartu-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    margin-bottom: 10px;
+  }
+
+  .kartu-judul {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(17px, 2.2vw, 22px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--putih-gading);
+    margin-bottom: 12px;
+  }
+
+  .kartu-judul em {
+    color: var(--emas);
+    font-style: italic;
+  }
+
+  .kartu-ringkasan {
+    font-size: 14px;
+    color: rgba(240,232,208,0.6);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .baca-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .baca-link::after {
+    content: '→';
+    transition: transform 0.3s;
+  }
+
+  .kartu-esai:hover .baca-link::after {
+    transform: translateX(4px);
+  }
+
+  /* Kartu coming soon */
+  .kartu-esai.segera {
+    opacity: 0.5;
+    pointer-events: none;
+    border-style: dashed;
+    border-color: rgba(201,168,76,0.15);
+  }
+
+  .kartu-esai.segera .kartu-nomor {
+    background: transparent;
+  }
+
+  .badge-segera {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--merah-bara);
+    border: 1px solid var(--merah-bara);
+    padding: 2px 8px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+
+  /* ── KUTIPAN BESAR ── */
+  .kutipan-besar {
+    background: rgba(201,168,76,0.05);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 80px 10vw;
+    text-align: center;
+  }
+
+  .kutipan-besar blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--putih-gading);
+    max-width: 700px;
+    margin: 0 auto 24px;
+  }
+
+  .kutipan-besar cite {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    font-style: normal;
+  }
+
+  /* ── CARA MEMBACA ── */
+  .cara-baca {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .cara-baca-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cara-baca-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, rgba(201,168,76,0.3), transparent);
+    max-width: 60px;
+  }
+
+  .cara-baca p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: rgba(240,232,208,0.75);
+    line-height: 1.9;
+    margin-bottom: 18px;
+  }
+
+  .cara-baca p strong { color: var(--emas-muda); font-weight: 400; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 60px 40px;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.3);
+    text-transform: uppercase;
+  }
+
+  footer .logo-footer {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--emas);
+    display: block;
+    letter-spacing: 1px;
+    text-transform: none;
+    margin-bottom: 12px;
+  }
+
+  /* ── ANIMASI ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero { padding: 80px 6vw 70px; }
+    .pengantar, .daftar-esai, .cara-baca { padding: 60px 24px; }
+    .tiga-pilar { grid-template-columns: 1fr; }
+    .kartu-nomor { width: 52px; }
+    .kartu-konten { padding: 22px 20px; }
+    .kutipan-besar { padding: 60px 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    Jaga Ngariksa Leweung
+    <span>Bahula Tani Nusantara · Pasir Ipis, Sukabumi</span>
+  </a>
+  <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.4);">Seri Esai · Madilog × Ekologi</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">Madilog</div>
+  <p class="hero-kecil">Seri Pemikiran · Jaga Ngariksa Leweung</p>
+  <h1>Madilog <span class="times">×</span> Ekologi</h1>
+  <div class="hero-garis"></div>
+  <p class="hero-deskripsi">
+    Sebuah seri esai yang membaca krisis ekologi dan agraria Indonesia dengan kerangka berpikir Materialisme, Dialektika, dan Logika — warisan intelektual Tan Malaka yang kami terapkan pada kenyataan yang paling dekat dengan kami: tanah, hutan, dan petani di kaki Gunung Guruh.
+  </p>
+  <div class="hero-meta">
+    <span class="hero-meta-item">Pasir Ipis, Sukabumi</span>
+    <span class="hero-meta-item">Seri Aktif · 2025</span>
+    <span class="hero-meta-item">2 Esai Terbit · 1 Akan Datang</span>
+  </div>
+</section>
+
+<!-- PENGANTAR MADILOG -->
+<section class="pengantar reveal">
+  <div class="pengantar-label">Mengapa Madilog?</div>
+  <p>
+    Tan Malaka menulis <em>Madilog</em> bukan untuk akademisi — ia menulisnya untuk rakyat yang ingin berpikir jernih tanpa bergantung pada otoritas yang tidak bisa dipertanggungjawabkan. Tiga pilar berpikirnya — <strong>Materialisme, Dialektika, dan Logika</strong> — adalah alat yang paling jujur untuk membaca kenyataan: lihat fakta material yang bisa disentuh, temukan kontradiksi yang tersembunyi, lalu sampailah pada kesimpulan yang konsisten.
+  </p>
+  <p>
+    Kami menerapkan kerangka ini bukan pada sejarah atau filsafat abstrak, tapi pada pertanyaan yang paling konkret: <strong>mengapa petani yang menghidupi semua orang tetap miskin? Siapa yang sesungguhnya berhak atas hutan? Bagaimana sistem pertanian modern menciptakan ketergantungan yang permanen?</strong> Pertanyaan-pertanyaan ini tidak membutuhkan teori baru — ia membutuhkan kejujuran untuk melihat kenyataan apa adanya.
+  </p>
+
+  <div class="tiga-pilar">
+    <div class="pilar">
+      <div class="pilar-angka">M</div>
+      <div class="pilar-nama">Materialisme</div>
+      <div class="pilar-desc">Lihat kenyataan yang bisa disentuh. Fakta material tidak bisa dibantah oleh retorika.</div>
+    </div>
+    <div class="pilar">
+      <div class="pilar-angka">Di</div>
+      <div class="pilar-nama">Dialektika</div>
+      <div class="pilar-desc">Temukan kontradiksi yang tersembunyi di balik narasi resmi dan kepentingan yang bertentangan.</div>
+    </div>
+    <div class="pilar">
+      <div class="pilar-angka">Log</div>
+      <div class="pilar-nama">Logika</div>
+      <div class="pilar-desc">Sampailah pada kesimpulan yang konsisten — dan tindakan yang konsisten dengan kesimpulan itu.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DAFTAR ESAI -->
+<section class="daftar-esai">
+  <div class="daftar-label reveal">Esai dalam Seri Ini</div>
+
+  <!-- Esai I -->
+  <a href="esai1-petani-subjek-peradaban.html" class="kartu-esai reveal">
+    <div class="kartu-nomor">
+      <span class="nomor-romawi">I</span>
+      <span class="nomor-arab">Esai 01</span>
+    </div>
+    <div class="kartu-konten">
+      <div class="kartu-tag">Manifesto · Fondasi Seri</div>
+      <div class="kartu-judul">Petani Bukan Objek Pembangunan, <em>Petani Adalah Subjek Peradaban</em></div>
+      <p class="kartu-ringkasan">Selama petani dipandang sebagai penerima bantuan dan objek program, tidak ada kebijakan yang akan benar-benar memihaknya. Esai ini membangun premis dasar: secara material, petanilah yang menghidupi peradaban — bukan sebaliknya.</p>
+      <span class="baca-link">Baca Esai Pertama</span>
+    </div>
+  </a>
+
+  <!-- Esai II -->
+  <a href="esai2-hutan-bukan-milik-negara.html" class="kartu-esai reveal">
+    <div class="kartu-nomor">
+      <span class="nomor-romawi">II</span>
+      <span class="nomor-arab">Esai 02</span>
+    </div>
+    <div class="kartu-konten">
+      <div class="kartu-tag">Tenurial · Hak Komunitas</div>
+      <div class="kartu-judul">Hutan Bukan Milik Negara, <em>Hutan Adalah Milik Orang yang Hidupnya Bergantung Padanya</em></div>
+      <p class="kartu-ringkasan">Ada perbedaan antara kepemilikan di atas kertas dan kepemilikan yang nyata. Esai ini memeriksa siapa yang sesungguhnya menjaga hutan, siapa yang menanggung akibat dari kerusakannya, dan mengapa kewenangan harus mengikuti tanggung jawab.</p>
+      <span class="baca-link">Baca Esai Kedua</span>
+    </div>
+  </a>
+
+  <!-- Surat Terbuka -->
+  <a href="surat-terbuka-gubernur.html" class="kartu-esai reveal">
+    <div class="kartu-nomor">
+      <span class="nomor-romawi" style="font-size:18px;">✉</span>
+      <span class="nomor-arab">Surat</span>
+    </div>
+    <div class="kartu-konten">
+      <div class="kartu-tag">Surat Terbuka · Advokasi</div>
+      <div class="kartu-judul">Kepada Gubernur Jawa Barat — <em>Dari Tangan yang Sudah Berdarah karena Bekerja</em></div>
+      <p class="kartu-ringkasan">Bukan surat yang meminta dikasihani. Tapi surat dari seseorang yang pernah cukup dekat untuk bertemu, tapi memilih pergi karena malu datang dengan tangan yang menengadah — dan kini kembali dengan dua permintaan yang sederhana namun mendasar.</p>
+      <span class="baca-link">Baca Surat Terbuka</span>
+    </div>
+  </a>
+
+  <!-- Esai III — Coming Soon -->
+  <div class="kartu-esai segera reveal">
+    <div class="kartu-nomor">
+      <span class="nomor-romawi">III</span>
+      <span class="nomor-arab">Esai 03</span>
+    </div>
+    <div class="kartu-konten">
+      <div class="badge-segera">Segera Terbit</div>
+      <div class="kartu-judul">Pupuk, Benih, dan <em>Rantai Ketergantungan yang Dirancang</em></div>
+      <p class="kartu-ringkasan">Mengapa petani yang bekerja keras tetap miskin sementara yang menjual input pertanian semakin kaya? Esai ini membongkar arsitektur sistem yang menciptakan kemiskinan terstruktur di sektor pertanian Indonesia.</p>
+      <span class="baca-link">Akan Datang</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- KUTIPAN BESAR -->
+<div class="kutipan-besar reveal">
+  <blockquote>
+    "Petani bukan objek pembangunan. Petani adalah subjek peradaban — dan hutan bukan milik negara, hutan adalah milik orang yang hidupnya bergantung padanya."
+  </blockquote>
+  <cite>— Seri Madilog × Ekologi · Bahula Tani Nusantara</cite>
+</div>
+
+<!-- CARA MEMBACA -->
+<section class="cara-baca reveal">
+  <div class="cara-baca-label">Cara Membaca Seri Ini</div>
+  <p>
+    Setiap esai dalam seri ini bisa dibaca secara mandiri — kamu tidak perlu membaca dari urutan pertama untuk memahami esai berikutnya. Tapi kalau kamu membacanya berurutan, kamu akan menemukan bahwa ketiganya membangun satu argumen yang utuh: <strong>dari siapa petani itu (Esai I), apa yang telah dicuri darinya (Esai II), hingga bagaimana sistem menciptakan dan mempertahankan pencurian itu (Esai III).</strong>
+  </p>
+  <p>
+    Seri ini ditulis dari Pasir Ipis, Gunung Guruh, Sukabumi — bukan dari ruang seminar atau perpustakaan universitas. Ia ditulis oleh orang yang telah tidur di hutan, yang tangannya tahu bagaimana tanah terasa di musim kemarau dan musim hujan, yang telah menyaksikan langsung bagaimana sistem yang sedang kami kritisi bekerja dalam kehidupan nyata petani. <strong>Itu bukan jaminan bahwa kami selalu benar — tapi itu jaminan bahwa kami tidak sedang berspekulasi.</strong>
+  </p>
+  <p>
+    Kalau kamu setuju, bagikan. Kalau kamu tidak setuju, kami ingin mendengarnya — karena pemikiran yang tidak diuji tidak akan pernah menjadi lebih kuat.
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo-footer">Jaga Ngariksa Leweung</span>
+  Bahula Tani Nusantara · Pasir Ipis, Gunung Guruh, Sukabumi · Jawa Barat
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

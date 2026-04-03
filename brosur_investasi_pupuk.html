@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brosur — Patungan Modal Pupuk Subsidi · Kelompok Tani Sadar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'DM Sans', sans-serif;
+  gap: 20px;
+}
+
+/* TOMBOL DOWNLOAD */
+.dl-btn {
+  background: linear-gradient(135deg,#a07010,#e8b830);
+  color: #000;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: .3px;
+  transition: all .3s;
+  box-shadow: 0 4px 20px rgba(200,146,13,.4);
+}
+.dl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,146,13,.5); }
+
+@keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+
+/* ══ BROSUR 1 — UTAMA ══ */
+.brosur {
+  width: 420px;
+  background: #000;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0,0,0,.8);
+  position: relative;
+}
+
+/* Header brosur */
+.br-head {
+  background: linear-gradient(135deg, #0a0700, #140e00, #0a0700);
+  padding: 32px 28px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(232,184,48,.2);
+}
+
+.br-head::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(232,184,48,.1), transparent);
+}
+
+.br-bismillah {
+  font-family: 'Amiri', serif;
+  font-size: 16px;
+  color: rgba(232,184,48,.6);
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.br-org {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(232,184,48,.3);
+  background: rgba(232,184,48,.06);
+  border-radius: 30px;
+  padding: 4px 14px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #e8b830;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.br-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: .95;
+  color: #f0e4c0;
+  position: relative;
+}
+
+.br-title em {
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  font-size: .6em;
+  color: rgba(240,228,192,.35);
+  line-height: 1.5;
+}
+
+.br-title .gold-txt {
+  background: linear-gradient(105deg,#7a5000,#c9920d,#f7d96a,#c9920d,#7a5000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+.br-divider {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg,transparent,#e8b830,transparent);
+  margin: 14px auto;
+  position: relative;
+}
+
+/* Stats row */
+.br-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: rgba(232,184,48,.12);
+}
+
+.br-stat {
+  background: #06040a;
+  padding: 16px 8px;
+  text-align: center;
+}
+
+.br-stat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(105deg,#7a5000,#c9920d,#f7d96a,#c9920d,#7a5000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  display: block;
+  line-height: 1;
+}
+
+.br-stat-label {
+  font-size: 8px;
+  color: #6a5a30;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  margin-top: 3px;
+  display: block;
+}
+
+/* Body brosur */
+.br-body {
+  padding: 24px;
+  background: linear-gradient(180deg, #06040a, #040300);
+}
+
+/* Paket grid */
+.br-paket-title {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  background: linear-gradient(105deg,#7a5000,#c9920d,#f7d96a,#c9920d,#7a5000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.br-paket-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.br-paket {
+  background: rgba(232,184,48,.04);
+  border: 1px solid rgba(232,184,48,.14);
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+  transition: all .3s;
+}
+
+.br-paket:hover {
+  border-color: rgba(232,184,48,.4);
+  background: rgba(232,184,48,.08);
+}
+
+.br-paket-icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
+
+.br-paket-nama {
+  font-size: 9px;
+  font-weight: 700;
+  color: #e8b830;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 4px;
+}
+
+.br-paket-modal {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f0e4c0;
+}
+
+.br-paket-upah jasa {
+  font-size: 9px;
+  color: #6a5a30;
+  margin-top: 2px;
+}
+
+/* Cara kerja */
+.br-cara-title {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #c9920d;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.br-cara-title::before { content:''; flex:1; height:1px; background:rgba(232,184,48,.15); }
+.br-cara-title::after  { content:''; flex:1; height:1px; background:rgba(232,184,48,.15); }
+
+.br-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.br-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(232,184,48,.06);
+}
+
+.br-step-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(232,184,48,.1);
+  border: 1px solid rgba(232,184,48,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800;
+  color: #e8b830; flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.br-step-text {
+  font-size: 11px;
+  line-height: 1.6;
+  color: rgba(240,228,192,.6);
+}
+
+.br-step-text strong { color: #f0e4c0; }
+
+/* Quote */
+.br-quote {
+  border-left: 2px solid rgba(232,184,48,.3);
+  padding: 12px 16px;
+  background: rgba(232,184,48,.03);
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 20px;
+}
+
+.br-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(240,228,192,.7);
+  line-height: 1.6;
+}
+
+.br-quote-src {
+  font-size: 8px;
+  color: #6a5a30;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* Rekening */
+.br-rek {
+  background: linear-gradient(135deg,rgba(13,10,0,.9),rgba(20,15,0,.9));
+  border: 1px solid rgba(232,184,48,.2);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.br-rek-title {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(105deg,#7a5000,#c9920d,#f7d96a,#c9920d,#7a5000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.br-rek-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(232,184,48,.07);
+}
+.br-rek-row:last-child { border-bottom: none; }
+
+.br-rek-bank {
+  font-size: 10px;
+  font-weight: 700;
+  color: #c4a060;
+}
+
+.br-rek-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8b830;
+  letter-spacing: 1.5px;
+}
+
+/* CTA brosur */
+.br-cta {
+  background: linear-gradient(135deg,#a07010,#c9920d,#e8b830,#c9920d,#a07010);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  color: #000;
+  padding: 14px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 20px rgba(200,146,13,.4);
+  transition: transform .3s;
+}
+.br-cta:hover { transform: translateY(-2px); }
+
+/* Footer brosur */
+.br-foot {
+  background: #040300;
+  padding: 16px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(232,184,48,.1);
+}
+
+.br-foot-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-style: italic;
+  color: #c9920d;
+  margin-bottom: 4px;
+}
+
+.br-foot-info {
+  font-size: 8px;
+  color: #4a3a10;
+  letter-spacing: .1em;
+  line-height: 1.8;
+}
+
+/* ══ BROSUR 2 — MINI SQUARE (story/status) ══ */
+.brosur-sq {
+  width: 420px;
+  background: #000;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0,0,0,.8);
+}
+
+.sq-head {
+  background: linear-gradient(135deg,#080500,#120c00);
+  padding: 32px 28px;
+  text-align: center;
+  border-bottom: 1px solid rgba(232,184,48,.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.sq-head::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 80%, rgba(232,184,48,.08), transparent 60%);
+}
+
+.sq-icon { font-size: 3rem; margin-bottom: 12px; position: relative; }
+
+.sq-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 700;
+  color: #f0e4c0; line-height: 1.1;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.sq-sub {
+  font-size: 11px;
+  color: rgba(240,228,192,.4);
+  line-height: 1.6;
+  position: relative;
+}
+
+.sq-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.sq-item {
+  background: rgba(232,184,48,.04);
+  border: 1px solid rgba(232,184,48,.13);
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+}
+
+.sq-item-icon { font-size: 1.5rem; margin-bottom: 6px; display: block; }
+
+.sq-item-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 700;
+  background: linear-gradient(105deg,#7a5000,#c9920d,#f7d96a,#c9920d,#7a5000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  display: block; line-height: 1;
+}
+
+.sq-item-label {
+  font-size: 9px; color: #6a5a30;
+  text-transform: uppercase; letter-spacing: .12em;
+  margin-top: 4px; display: block;
+}
+
+.sq-foot {
+  padding: 16px 20px 20px;
+  background: linear-gradient(180deg,rgba(6,4,0,.98),rgba(3,2,0,1));
+  border-top: 1px solid rgba(232,184,48,.08);
+}
+
+.sq-wa {
+  display: block;
+  background: linear-gradient(135deg,#a07010,#c9920d,#e8b830);
+  color: #000;
+  padding: 13px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 20px rgba(200,146,13,.35);
+}
+
+.sq-info {
+  font-size: 9px;
+  color: #4a3a10;
+  text-align: center;
+  letter-spacing: .12em;
+  line-height: 1.8;
+}
+
+@media (max-width: 460px) {
+  .brosur, .brosur-sq { width: 100%; }
+}
+</style>
+</head>
+<body>
+<!-- ══ NAVBAR PENGHUBUNG ══ -->
+<nav style="position:sticky;top:0;z-index:9999;background:rgba(5,4,0,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,184,48,.15);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span style="font-size:18px;">🌾</span>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:#e8b830;">Kelompok Tani Sadar</span>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+    <a href="https://malviejayagroup-prog.github.io/Tanam_saham_panen_bersama/" target="_blank" style="padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,#a0700a,#e8b830);color:#000;font-size:11px;font-weight:800;font-family:sans-serif;text-decoration:none;">🌱 Tanam Saham</a>
+    <a href="https://malviejayagroup-prog.github.io/Company-profil-baheola-tani/" target="_blank" style="padding:6px 14px;border-radius:20px;border:1px solid rgba(232,184,48,.3);color:rgba(232,184,48,.8);font-size:11px;font-weight:700;font-family:sans-serif;text-decoration:none;">🏢 Profil</a>
+    <a href="https://malviejayagroup-prog.github.io/Kisah-jejak-si-jampan165/" target="_blank" style="padding:6px 14px;border-radius:20px;border:1px solid rgba(232,184,48,.2);color:rgba(232,184,48,.5);font-size:11px;font-weight:700;font-family:sans-serif;text-decoration:none;">📖 Si Jampang</a>
+  </div>
+</nav>
+
+
+<p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);text-align:center;">Screenshot brosur di bawah untuk di-share ke WA/medsos</p>
+
+<!-- ══ BROSUR UTAMA ══ -->
+<div class="brosur" id="brosur1">
+
+  <div class="br-head">
+    <div class="br-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+    <div class="br-org">🌾 Kelompok Tani Sadar · Pasir Ipis · Sukabumi</div>
+    <h1 class="br-title">
+      <span class="gold-txt">Patungan Modal</span><br>
+      Pupuk Subsidi
+      <em>Modal kecil · Upah tunai · Tanpa tunggu panen</em>
+    </h1>
+    <div class="br-divider"></div>
+  </div>
+
+  <div class="br-stats">
+    <div class="br-stat">
+      <span class="br-stat-val">Rp 102rb</span>
+      <span class="br-stat-label">Modal/Karung</span>
+    </div>
+    <div class="br-stat">
+      <span class="br-stat-val">Rp 5rb</span>
+      <span class="br-stat-label">Upah Jasa/Karung</span>
+    </div>
+    <div class="br-stat">
+      <span class="br-stat-val">50 ton</span>
+      <span class="br-stat-label">Kuota Tersedia</span>
+    </div>
+  </div>
+
+  <div class="br-body">
+
+    <div class="br-paket-title">✦ Pilih Paket Patungan Anda</div>
+
+    <div class="br-paket-grid">
+      <div class="br-paket">
+        <span class="br-paket-icon">🌱</span>
+        <div class="br-paket-nama">Bibit</div>
+        <div class="br-paket-modal">Rp 1,02 jt</div>
+        <div class="br-paket-upah jasa">10 karung · +Rp 50rb upah</div>
+      </div>
+      <div class="br-paket">
+        <span class="br-paket-icon">🌿</span>
+        <div class="br-paket-nama">Tumbuh</div>
+        <div class="br-paket-modal">Rp 5,1 jt</div>
+        <div class="br-paket-upah jasa">50 karung · +Rp 250rb upah</div>
+      </div>
+      <div class="br-paket">
+        <span class="br-paket-icon">🌾</span>
+        <div class="br-paket-nama">Panen</div>
+        <div class="br-paket-modal">Rp 10,2 jt</div>
+        <div class="br-paket-upah jasa">100 karung · +Rp 500rb upah</div>
+      </div>
+      <div class="br-paket">
+        <span class="br-paket-icon">🏔️</span>
+        <div class="br-paket-nama">Gunung</div>
+        <div class="br-paket-modal">Rp 51 jt</div>
+        <div class="br-paket-upah jasa">500 karung · +Rp 2,5 jt</div>
+      </div>
+      <div class="br-paket">
+        <span class="br-paket-icon">🌳</span>
+        <div class="br-paket-nama">Penuh</div>
+        <div class="br-paket-modal">Rp 102 jt</div>
+        <div class="br-paket-upah jasa">1.000 karung · +Rp 5 jt</div>
+      </div>
+      <div class="br-paket" style="background:rgba(232,184,48,.08);border-color:rgba(232,184,48,.3);">
+        <span class="br-paket-icon">💬</span>
+        <div class="br-paket-nama" style="color:#f7d96a;">Custom</div>
+        <div class="br-paket-modal">Bebas</div>
+        <div class="br-paket-upah jasa">Sesuai kemampuan</div>
+      </div>
+    </div>
+
+    <div class="br-cara-title">Cara Kerja</div>
+
+    <div class="br-steps">
+      <div class="br-step">
+        <div class="br-step-num">1</div>
+        <div class="br-step-text"><strong>Transfer modal</strong> sesuai paket ke rekening di bawah · konfirmasi WA</div>
+      </div>
+      <div class="br-step">
+        <div class="br-step-num">2</div>
+        <div class="br-step-text"><strong>Pupuk ditebus</strong> @ Rp 102.000/karung lalu dijual tunai ke petani anggota</div>
+      </div>
+      <div class="br-step">
+        <div class="br-step-num">3</div>
+        <div class="br-step-text"><strong>Penjualan tunai</strong> — tidak perlu tunggu panen, cash flow langsung berputar</div>
+      </div>
+      <div class="br-step">
+        <div class="br-step-num">4</div>
+        <div class="br-step-text"><strong>Modal + upah jasa</strong> Rp 5.000/karung dikembalikan · laporan via WhatsApp</div>
+      </div>
+    </div>
+
+    <div class="br-quote">
+      <p class="br-quote-text">"Jaminan kami bukan kertas — tapi 10 tahun rekam jejak di Pasir Ipis dan transparansi penuh kepada setiap mitra poktan."</p>
+      <p class="br-quote-src">Moch Malvie Alkhudriyah · Pengurus Kelompok Tani Sadar</p>
+    </div>
+
+    <div class="br-rek">
+      <div class="br-rek-title">💳 Transfer Patungan Modal ke</div>
+      <div class="br-rek-row">
+        <span class="br-rek-bank">🏦 Bank Mandiri</span>
+        <span class="br-rek-num">1820016298168</span>
+      </div>
+      <div class="br-rek-row">
+        <span class="br-rek-bank">🌊 SeaBank</span>
+        <span class="br-rek-num">901823280710</span>
+      </div>
+      <div class="br-rek-row">
+        <span class="br-rek-bank">📱 GoPay/OVO</span>
+        <span class="br-rek-num">083871666136</span>
+      </div>
+    </div>
+
+    <a href="https://wa.me/6283871666136?text=Assalamu'alaikum%20Kang%20Malvie%2C%20saya%20tertarik%20patungan modal%20pupuk%20subsidi.%20Boleh%20info%20lebih%20lanjut%3F"
+       class="br-cta" target="_blank">
+      💬 Konfirmasi & Tanya via WhatsApp — 083871666136
+    </a>
+
+  </div>
+
+  <div class="br-foot">
+    <div class="br-foot-brand">Kelompok Tani Sadar · Bahula Tani Nusantara</div>
+    <div class="br-foot-info">
+      Kampung Pasir Ipis · Gunung Guruh · Sukabumi · Jawa Barat<br>
+      malviejayagroup-prog.github.io/Tani_saham_panen_bersama · جاگا ڠارِيکسا لِيۏوڠ 🌿
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ BROSUR MINI (Story/Status WA) ══ -->
+<div class="brosur-sq" id="brosur2">
+
+  <div class="sq-head">
+    <div class="sq-icon">🌾</div>
+    <h2 class="sq-title">Peluang Patungan Modal<br><span style="background:linear-gradient(105deg,#7a5000,#c9920d,#f7d96a,#c9920d,#7a5000);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;">Pupuk Subsidi</span></h2>
+    <p class="sq-sub">Kelompok Tani Sadar · Pasir Ipis · Gunung Guruh · Sukabumi</p>
+  </div>
+
+  <div class="sq-body">
+    <div class="sq-item">
+      <span class="sq-item-icon">💰</span>
+      <span class="sq-item-val">Rp 102rb</span>
+      <span class="sq-item-label">Modal / Karung</span>
+    </div>
+    <div class="sq-item">
+      <span class="sq-item-icon">📈</span>
+      <span class="sq-item-val">Rp 5rb</span>
+      <span class="sq-item-label">Upah Jasa / Karung</span>
+    </div>
+    <div class="sq-item">
+      <span class="sq-item-icon">⚡</span>
+      <span class="sq-item-val">Tunai</span>
+      <span class="sq-item-label">Bukan Tunggu Panen</span>
+    </div>
+    <div class="sq-item">
+      <span class="sq-item-icon">📦</span>
+      <span class="sq-item-val">50 ton</span>
+      <span class="sq-item-label">Kuota Tersedia</span>
+    </div>
+  </div>
+
+  <div class="sq-foot">
+    <a href="https://wa.me/6283871666136?text=Assalamu'alaikum%20Kang%20Malvie%2C%20saya%20tertarik%20patungan modal%20pupuk%20subsidi"
+       class="sq-wa" target="_blank">
+      💬 Hubungi Sekarang · 083871666136
+    </a>
+    <div class="sq-info">
+      Bank Mandiri: 1820016298168 · SeaBank: 901823280710<br>
+      Kelompok Tani Sadar · Pasir Ipis · Sukabumi 🌿
+    </div>
+  </div>
+
+</div>
+
+<p style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.3);text-align:center;max-width:420px;">
+  Brosur atas = share ke grup/pribadi WA · Brosur bawah = untuk story WA/IG
+</p>
+
+</body>
+</html>
